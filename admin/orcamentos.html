@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamentos | G2I Contabilidade</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-blue: #0f172a;
+            --electric-blue: #7600FF;
+            --light-blue: #7600FF;
+            --light-gray: #f8fafc;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: #e2e8f0;
+        }
+
+        .sidebar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            width: 260px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar.collapsed .sidebar-text {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+
+        .card-glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .nav-item {
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(118, 0, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(118, 0, 255, 0.2);
+            border-left: 4px solid #7600FF;
+        }
+
+        .input-modern {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .input-modern:focus {
+            border-color: #7600FF;
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, #7600FF, #9d4dff);
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
+        }
+
+        table.dataTable {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table.dataTable thead th {
+            background: rgba(118, 0, 255, 0.2);
+            color: #e2e8f0;
+            border-bottom: 2px solid rgba(118, 0, 255, 0.3);
+        }
+
+        table.dataTable tbody tr {
+            background: transparent;
+        }
+
+        table.dataTable tbody tr:hover {
+            background: rgba(118, 0, 255, 0.1);
+        }
+
+        table.dataTable tbody td {
+            color: #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .badge-purple {
+            background: rgba(118, 0, 255, 0.2);
+            color: #9d4dff;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar .sidebar-text {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        /* Estilos para o Modal de Logout */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #7600FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Estilo para botões do modal */
+        .bg-gray-800 {
+            background-color: #1f2937;
+        }
+
+        .bg-gray-900 {
+            background-color: #111827;
+        }
+
+        .bg-purple-900\/30 {
+            background-color: rgba(76, 29, 149, 0.3);
+        }
+
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+
+        .from-purple-600 {
+            --tw-gradient-from: #7600FF;
+        }
+
+        .to-purple-400 {
+            --tw-gradient-to: #9d4dff;
+        }
+
+        .hover\:from-purple-700:hover {
+            --tw-gradient-from: #5a00cc;
+        }
+
+        .hover\:to-purple-500:hover {
+            --tw-gradient-to: #8a2be2;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-gray-200">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed h-screen z-40">
+        <div class="p-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-between mb-10">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30">
+                        </div>
+                        <div class="relative bg-black p-2 rounded-lg">
+                            <i class="fas fa-calculator text-purple-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <div id="logoText">
+                        <h2 class="text-xl font-bold text-white">G2I<span class="text-purple-400">.</span></h2>
+                        <p class="text-xs text-gray-400">Admin</p>
+                    </div>
+                </div>
+                <button id="toggleSidebar" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-chart-bar text-purple-400"></i>
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+
+                <a href="clientes.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-users text-purple-400"></i>
+                    <span class="sidebar-text">Clientes</span>
+                </a>
+
+                <a href="usuarios.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-user-cog text-purple-400"></i>
+                    <span class="sidebar-text">Usuários</span>
+                </a>
+
+                <a href="orcamentos.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg active">
+                    <i class="fas fa-file-invoice-dollar text-purple-400"></i>
+                    <span class="sidebar-text">Orçamentos</span>
+                </a>
+
+                <a href="relatorios.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-chart-pie text-purple-400"></i>
+                    <span class="sidebar-text">Relatórios</span>
+                </a>
+
+                <div class="pt-8 mt-8 border-t border-gray-800">
+                    <a href="configuracoes.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-cog text-purple-400"></i>
+                        <span class="sidebar-text">Configurações</span>
+                    </a>
+
+                    <a href="../index.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-globe text-purple-400"></i>
+                        <span class="sidebar-text">Site Público</span>
+                    </a>
+
+                    <button id="logoutBtn" class="nav-item flex items-center space-x-3 p-3 rounded-lg w-full text-left">
+                        <i class="fas fa-sign-out-alt text-purple-400"></i>
+                        <span class="sidebar-text">Sair</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content min-h-screen">
+        <!-- Top Bar -->
+        <div class="bg-gradient-to-r from-gray-900 to-black border-b border-gray-800 p-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Orçamentos</h1>
+                    <p class="text-gray-400">Solicitações recebidas do site</p>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button id="exportBtn"
+                            class="px-4 py-2 bg-purple-900/50 hover:bg-purple-900/70 text-purple-300 rounded-lg border border-purple-800/50">
+                            <i class="fas fa-download mr-2"></i> Exportar
+                        </button>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center">
+                            <span class="text-white font-bold">AD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="card-glass p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-white">42</div>
+                            <div class="text-gray-400">Pendentes</div>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-gradient-to-r from-yellow-900/30 to-yellow-800/30 flex items-center justify-center">
+                            <i class="fas fa-clock text-yellow-400 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-white">156</div>
+                            <div class="text-gray-400">Convertidos</div>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-gradient-to-r from-green-900/30 to-green-800/30 flex items-center justify-center">
+                            <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-white">24</div>
+                            <div class="text-gray-400">Em Análise</div>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-900/30 to-blue-800/30 flex items-center justify-center">
+                            <i class="fas fa-search text-blue-400 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-3xl font-bold text-white">18</div>
+                            <div class="text-gray-400">Recusados</div>
+                        </div>
+                        <div
+                            class="w-12 h-12 rounded-lg bg-gradient-to-r from-red-900/30 to-red-800/30 flex items-center justify-center">
+                            <i class="fas fa-times-circle text-red-400 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="card-glass p-6 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-gray-300 mb-2 text-sm">Buscar</label>
+                        <input type="text" id="searchInput" class="input-modern w-full px-4 py-2"
+                            placeholder="Nome, Empresa...">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 text-sm">Status</label>
+                        <select id="statusFilter" class="input-modern w-full px-4 py-2">
+                            <option value="">Todos</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="analise">Em Análise</option>
+                            <option value="convertido">Convertido</option>
+                            <option value="recusado">Recusado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 text-sm">Tipo</label>
+                        <select id="typeFilter" class="input-modern w-full px-4 py-2">
+                            <option value="">Todos</option>
+                            <option value="pj">Pessoa Jurídica</option>
+                            <option value="pf">Pessoa Física</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button id="filterBtn" class="btn-modern w-full px-4 py-2">
+                            <i class="fas fa-filter mr-2"></i> Filtrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela de Orçamentos -->
+            <div class="card-glass p-6">
+                <div class="overflow-x-auto">
+                    <table id="orcamentosTable" class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="py-3 px-4 text-left">ID</th>
+                                <th class="py-3 px-4 text-left">Cliente</th>
+                                <th class="py-3 px-4 text-left">Tipo</th>
+                                <th class="py-3 px-4 text-left">Serviços</th>
+                                <th class="py-3 px-4 text-left">Data</th>
+                                <th class="py-3 px-4 text-left">Valor Estimado</th>
+                                <th class="py-3 px-4 text-left">Status</th>
+                                <th class="py-3 px-4 text-left">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-3 px-4">#00123</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">João Silva</div>
+                                    <div class="text-gray-400 text-sm">joao@email.com</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-info">Pessoa Física</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Contabilidade</span>
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Fiscal</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">15/03/2024</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">R$ 450,00/mês</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-warning">Pendente</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 view-btn" data-id="00123"
+                                        title="Visualizar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-400 hover:text-green-300 mr-2 convert-btn" data-id="00123"
+                                        title="Converter">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 mr-2 edit-btn" data-id="00123"
+                                        title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="00123"
+                                        title="Excluir">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">#00124</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">Empresa ABC Ltda</div>
+                                    <div class="text-gray-400 text-sm">contato@empresaabc.com</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-purple">Pessoa Jurídica</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Contabilidade</span>
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Folha</span>
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Fiscal</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">14/03/2024</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">R$ 1.200,00/mês</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-success">Convertido</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 view-btn" data-id="00124"
+                                        title="Visualizar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-400 hover:text-green-300 mr-2 convert-btn" data-id="00124"
+                                        title="Converter">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 mr-2 edit-btn" data-id="00124"
+                                        title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="00124"
+                                        title="Excluir">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">#00125</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">Maria Santos</div>
+                                    <div class="text-gray-400 text-sm">maria@email.com</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-info">Pessoa Física</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Abertura Empresa</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">13/03/2024</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">R$ 850,00</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-info">Em Análise</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 view-btn" data-id="00125"
+                                        title="Visualizar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-400 hover:text-green-300 mr-2 convert-btn" data-id="00125"
+                                        title="Converter">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 mr-2 edit-btn" data-id="00125"
+                                        title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="00125"
+                                        title="Excluir">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">#00126</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">Tech Solutions SA</div>
+                                    <div class="text-gray-400 text-sm">financeiro@techsolutions.com</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-purple">Pessoa Jurídica</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Consultoria</span>
+                                        <span class="text-xs px-2 py-1 bg-gray-800 rounded">Regularização</span>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">12/03/2024</td>
+                                <td class="py-3 px-4">
+                                    <div class="font-medium">R$ 3.500,00</div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-danger">Recusado</span>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 view-btn" data-id="00126"
+                                        title="Visualizar">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-400 hover:text-green-300 mr-2 convert-btn" data-id="00126"
+                                        title="Converter">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 mr-2 edit-btn" data-id="00126"
+                                        title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="00126"
+                                        title="Excluir">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 p-6 border-t border-gray-800">
+            <div class="text-center">
+                <p class="text-gray-500">
+                    &copy; 2024 G2I Contabilidade LTDA. CNPJ: 42.623.639/0001-73. Sistema Administrativo
+                </p>
+                <p class="text-gray-600 text-sm mt-2">
+                    <span class="text-purple-400">Orçamentos recebidos: 240</span> | Última atualização: 15/03/2024
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Visualizar Orçamento -->
+    <div id="viewModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div
+                class="bg-gray-900 rounded-2xl shadow-2xl max-w-4xl w-full border border-gray-800 max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Orçamento #<span id="orcamentoId"></span></h3>
+                            <p class="text-gray-400 text-sm">Detalhes completos da solicitação</p>
+                        </div>
+                        <button id="closeViewModal" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="card-glass p-6">
+                            <h4 class="text-lg font-bold text-white mb-4">Informações do Cliente</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="text-gray-400 text-sm">Nome</div>
+                                    <div class="text-white font-medium" id="viewNome">João Silva</div>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">E-mail</div>
+                                    <div class="text-white font-medium" id="viewEmail">joao@email.com</div>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Telefone</div>
+                                    <div class="text-white font-medium" id="viewTelefone">(11) 99999-9999</div>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Tipo</div>
+                                    <div class="text-white font-medium" id="viewTipo">Pessoa Física</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-glass p-6">
+                            <h4 class="text-lg font-bold text-white mb-4">Informações da Empresa</h4>
+                            <div class="space-y-3" id="empresaInfo">
+                                <div>
+                                    <div class="text-gray-400 text-sm">Razão Social/CPF</div>
+                                    <div class="text-white font-medium">123.456.789-00</div>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Funcionários</div>
+                                    <div class="text-white font-medium">1-5 funcionários</div>
+                                </div>
+                                <div>
+                                    <div class="text-gray-400 text-sm">Faturamento</div>
+                                    <div class="text-white font-medium">Até R$ 10.000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-glass p-6 mb-6">
+                        <h4 class="text-lg font-bold text-white mb-4">Serviços Solicitados</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="viewServicos">
+                            <div class="flex items-center p-3 rounded-lg bg-gray-800/50">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span class="text-gray-300">Contabilidade</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-glass p-6 mb-6">
+                        <h4 class="text-lg font-bold text-white mb-4">Mensagem do Cliente</h4>
+                        <div class="p-4 bg-gray-800/50 rounded-lg">
+                            <p class="text-gray-300" id="viewMensagem">
+                                Gostaria de receber um orçamento para serviços contábeis para minha empresa...
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-glass p-6">
+                        <h4 class="text-lg font-bold text-white mb-4">Histórico</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-purple-900/50 flex items-center justify-center">
+                                        <i class="fas fa-plus text-purple-400"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-white">Orçamento recebido via site</div>
+                                    <div class="text-gray-400 text-sm">15/03/2024 10:30</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center">
+                                        <i class="fas fa-eye text-blue-400"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-white">Visualizado por Admin G2I</div>
+                                    <div class="text-gray-400 text-sm">15/03/2024 11:15</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-6 py-4 bg-gray-900/50 border-t border-gray-800">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-gray-400 text-sm">Status atual:</div>
+                            <div class="text-white font-medium">
+                                <span class="badge badge-warning">Pendente</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg">
+                                <i class="fas fa-print mr-2"></i> Imprimir
+                            </button>
+                            <button class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg">
+                                <i class="fas fa-check mr-2"></i> Converter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-red-900/30 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-exclamation-triangle text-red-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2" id="confirmTitle">Confirmar Exclusão</h3>
+                        <p class="text-gray-400" id="confirmMessage">Tem certeza que deseja excluir este orçamento?</p>
+                    </div>
+
+                    <div class="flex justify-center space-x-4">
+                        <button id="cancelAction" class="px-6 py-2.5 text-gray-400 hover:text-white">
+                            Cancelar
+                        </button>
+                        <button id="confirmAction"
+                            class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+                            Confirmar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        // Toggle Sidebar
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        });
+
+        // Modal Functions
+        const viewModal = document.getElementById('viewModal');
+        const confirmModal = document.getElementById('confirmModal');
+        const logoutModal = document.getElementById('logoutModal');
+        const closeViewModal = document.getElementById('closeViewModal');
+        const cancelAction = document.getElementById('cancelAction');
+        const cancelLogout = document.getElementById('cancelLogout');
+
+        let currentAction = null;
+        let currentItemId = null;
+
+        // View buttons
+        document.querySelectorAll('.view-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const orcamentoId = this.getAttribute('data-id');
+                document.getElementById('orcamentoId').textContent = orcamentoId;
+                viewModal.classList.remove('hidden');
+            });
+        });
+
+        // Close View Modal
+        closeViewModal.addEventListener('click', function () {
+            viewModal.classList.add('hidden');
+        });
+
+        // Convert buttons
+        document.querySelectorAll('.convert-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                currentItemId = this.getAttribute('data-id');
+                currentAction = 'convert';
+                document.getElementById('confirmTitle').textContent = 'Converter Orçamento';
+                document.getElementById('confirmMessage').textContent = 'Tem certeza que deseja converter este orçamento em cliente?';
+                confirmModal.classList.remove('hidden');
+            });
+        });
+
+        // Delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                currentItemId = this.getAttribute('data-id');
+                currentAction = 'delete';
+                document.getElementById('confirmTitle').textContent = 'Excluir Orçamento';
+                document.getElementById('confirmMessage').textContent = 'Tem certeza que deseja excluir este orçamento? Esta ação não pode ser desfeita.';
+                confirmModal.classList.remove('hidden');
+            });
+        });
+
+        // Confirm Action
+        document.getElementById('confirmAction').addEventListener('click', function () {
+            if (currentItemId && currentAction) {
+                if (currentAction === 'delete') {
+                    console.log('Excluir orçamento:', currentItemId);
+                    alert('Orçamento excluído com sucesso!');
+                } else if (currentAction === 'convert') {
+                    console.log('Converter orçamento:', currentItemId);
+                    alert('Orçamento convertido em cliente!');
+                }
+                confirmModal.classList.add('hidden');
+                // Recarregar tabela
+                location.reload();
+            }
+        });
+
+        // Cancel Action
+        cancelAction.addEventListener('click', function () {
+            confirmModal.classList.add('hidden');
+            currentAction = null;
+            currentItemId = null;
+        });
+
+// Logout com Modal Profissional
+document.getElementById('logoutBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // Criar modal de logout
+    const logoutModal = document.createElement('div');
+    logoutModal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80';
+    logoutModal.innerHTML = `
+        <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800 animate-fadeIn">
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-sign-out-alt text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Confirmar Saída</h3>
+                    <p class="text-gray-400">Tem certeza que deseja sair do sistema?</p>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-gray-800/50 mb-6">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
+                            <span class="text-white font-bold">AD</span>
+                        </div>
+                        <div>
+                            <div class="text-white font-medium">${sessionStorage.getItem('g2i_user_name') || 'Administrador'}</div>
+                            <div class="text-gray-400 text-sm">${sessionStorage.getItem('g2i_user_role') === 'admin' ? 'Administrador' : 'Usuário'}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button id="cancelLogout" 
+                            class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition">
+                        Cancelar
+                    </button>
+                    <button id="confirmLogout" 
+                            class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg font-medium transition">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Adicionar modal ao body
+    document.body.appendChild(logoutModal);
+    
+    // Função para fechar modal
+    function closeLogoutModal() {
+        logoutModal.style.opacity = '0';
+        setTimeout(() => {
+            logoutModal.remove();
+        }, 300);
+    }
+    
+    // Botão Cancelar
+    document.getElementById('cancelLogout').addEventListener('click', closeLogoutModal);
+    
+    // Botão Confirmar
+    document.getElementById('confirmLogout').addEventListener('click', function() {
+        // Desabilitar botão e mostrar loading
+        this.disabled = true;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saindo...';
+        
+        // Limpar dados da sessão
+        sessionStorage.clear();
+        localStorage.removeItem('g2i_demo_email');
+        localStorage.removeItem('g2i_demo_remember');
+        
+        // Mostrar mensagem de sucesso antes de redirecionar
+        setTimeout(() => {
+            logoutModal.innerHTML = `
+                <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800">
+                    <div class="p-8 text-center">
+                        <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-check text-green-400 text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Logout Realizado</h3>
+                        <p class="text-gray-400 mb-6">Você saiu do sistema com sucesso.</p>
+                        <div class="mt-4">
+                            <div class="loading-spinner mx-auto"></div>
+                            <p class="text-gray-500 text-sm mt-3">Redirecionando...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Redirecionar após 1.5 segundos
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 1500);
+        }, 1000);
+    });
+    
+    // Fechar modal ao clicar fora
+    logoutModal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLogoutModal();
+        }
+    });
+    
+    // Fechar modal com ESC
+    const handleEscKey = function(e) {
+        if (e.key === 'Escape') {
+            closeLogoutModal();
+            document.removeEventListener('keydown', handleEscKey);
+        }
+    };
+    document.addEventListener('keydown', handleEscKey);
+});
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function (event) {
+            if (event.target === viewModal) {
+                viewModal.classList.add('hidden');
+            }
+            if (event.target === confirmModal) {
+                confirmModal.classList.add('hidden');
+                currentAction = null;
+                currentItemId = null;
+            }
+            if (event.target === logoutModal) {
+                logoutModal.classList.add('hidden');
+            }
+        });
+
+        // Export button
+        document.getElementById('exportBtn').addEventListener('click', function () {
+            alert('Exportando dados para Excel...');
+            // Em produção, aqui seria a lógica de exportação
+        });
+
+        // Initialize DataTable
+        $(document).ready(function () {
+            $('#orcamentosTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json'
+                },
+                pageLength: 10,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                dom: '<"top"f>rt<"bottom"ip><"clear">'
+            });
+        });
+
+        // Mobile responsive
+        function handleResize() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+            } else {
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+            }
+        }
+
+        // Initial check
+        handleResize();
+
+        // Listen for resize
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+
+</html>

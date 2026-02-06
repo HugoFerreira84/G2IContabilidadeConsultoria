@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários | G2I Contabilidade</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-blue: #0f172a;
+            --electric-blue: #7600FF;
+            --light-blue: #7600FF;
+            --light-gray: #f8fafc;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: #e2e8f0;
+        }
+
+        .sidebar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            width: 260px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar.collapsed .sidebar-text {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 260px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+
+        .card-glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .nav-item {
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(118, 0, 255, 0.1);
+        }
+
+        .nav-item.active {
+            background: rgba(118, 0, 255, 0.2);
+            border-left: 4px solid #7600FF;
+        }
+
+        .input-modern {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .input-modern:focus {
+            border-color: #7600FF;
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, #7600FF, #9d4dff);
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
+        }
+
+        table.dataTable {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table.dataTable thead th {
+            background: rgba(118, 0, 255, 0.2);
+            color: #e2e8f0;
+            border-bottom: 2px solid rgba(118, 0, 255, 0.3);
+        }
+
+        table.dataTable tbody tr {
+            background: transparent;
+        }
+
+        table.dataTable tbody tr:hover {
+            background: rgba(118, 0, 255, 0.1);
+        }
+
+        table.dataTable tbody td {
+            color: #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .badge-info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar .sidebar-text {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        /* Estilos para o Modal de Logout */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #7600FF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Estilo para botões do modal */
+        .bg-gray-800 {
+            background-color: #1f2937;
+        }
+
+        .bg-gray-900 {
+            background-color: #111827;
+        }
+
+        .bg-purple-900\/30 {
+            background-color: rgba(76, 29, 149, 0.3);
+        }
+
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+
+        .from-purple-600 {
+            --tw-gradient-from: #7600FF;
+        }
+
+        .to-purple-400 {
+            --tw-gradient-to: #9d4dff;
+        }
+
+        .hover\:from-purple-700:hover {
+            --tw-gradient-from: #5a00cc;
+        }
+
+        .hover\:to-purple-500:hover {
+            --tw-gradient-to: #8a2be2;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-gray-200">
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar fixed h-screen z-40">
+        <div class="p-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-between mb-10">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30">
+                        </div>
+                        <div class="relative bg-black p-2 rounded-lg">
+                            <i class="fas fa-calculator text-purple-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <div id="logoText">
+                        <h2 class="text-xl font-bold text-white">G2I<span class="text-purple-400">.</span></h2>
+                        <p class="text-xs text-gray-400">Admin</p>
+                    </div>
+                </div>
+                <button id="toggleSidebar" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="space-y-2">
+                <a href="dashboard.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-chart-bar text-purple-400"></i>
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+
+                <a href="clientes.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-users text-purple-400"></i>
+                    <span class="sidebar-text">Clientes</span>
+                </a>
+
+                <a href="usuarios.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg active">
+                    <i class="fas fa-user-cog text-purple-400"></i>
+                    <span class="sidebar-text">Usuários</span>
+                </a>
+
+                <a href="orcamentos.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-file-invoice-dollar text-purple-400"></i>
+                    <span class="sidebar-text">Orçamentos</span>
+                </a>
+
+                <a href="relatorios.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                    <i class="fas fa-chart-pie text-purple-400"></i>
+                    <span class="sidebar-text">Relatórios</span>
+                </a>
+
+                <div class="pt-8 mt-8 border-t border-gray-800">
+                    <a href="configuracoes.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-cog text-purple-400"></i>
+                        <span class="sidebar-text">Configurações</span>
+                    </a>
+
+                    <a href="../index.html" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-globe text-purple-400"></i>
+                        <span class="sidebar-text">Site Público</span>
+                    </a>
+
+                    <a href="#" id="logoutBtn" class="nav-item flex items-center space-x-3 p-3 rounded-lg">
+                        <i class="fas fa-sign-out-alt text-purple-400"></i>
+                        <span class="sidebar-text">Sair</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="main-content min-h-screen">
+        <!-- Top Bar -->
+        <div class="bg-gradient-to-r from-gray-900 to-black border-b border-gray-800 p-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Usuários do Sistema</h1>
+                    <p class="text-gray-400">Gerenciamento de acessos administrativos</p>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="addUsuarioBtn" class="btn-modern px-5 py-2.5 text-white">
+                        <i class="fas fa-plus mr-2"></i>
+                        Novo Usuário
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="p-6">
+            <!-- Tabela de Usuários -->
+            <div class="card-glass p-6">
+                <div class="overflow-x-auto">
+                    <table id="usuariosTable" class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="py-3 px-4 text-left">ID</th>
+                                <th class="py-3 px-4 text-left">Nome</th>
+                                <th class="py-3 px-4 text-left">E-mail</th>
+                                <th class="py-3 px-4 text-left">Perfil</th>
+                                <th class="py-3 px-4 text-left">Status</th>
+                                <th class="py-3 px-4 text-left">Último Acesso</th>
+                                <th class="py-3 px-4 text-left">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-3 px-4">001</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
+                                            <span class="text-white text-sm font-bold">AD</span>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium">Admin G2I</div>
+                                            <div class="text-gray-400 text-xs">Administrador</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">admin@g2icontabilidade.com</td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-danger">Administrador</span>
+                                </td>
+                                <td class="py-3 px-4"><span class="badge badge-success">Ativo</span></td>
+                                <td class="py-3 px-4">15/03/2024 14:30</td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 edit-btn" data-id="001">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="001">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 ml-2 reset-btn" data-id="001">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">002</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 flex items-center justify-center mr-3">
+                                            <span class="text-white text-sm font-bold">JR</span>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium">João Rodrigo</div>
+                                            <div class="text-gray-400 text-xs">Contador</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">joao@g2icontabilidade.com</td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-info">Contador</span>
+                                </td>
+                                <td class="py-3 px-4"><span class="badge badge-success">Ativo</span></td>
+                                <td class="py-3 px-4">14/03/2024 16:45</td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 edit-btn" data-id="002">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="002">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 ml-2 reset-btn" data-id="002">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">003</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gradient-to-r from-green-600 to-green-400 flex items-center justify-center mr-3">
+                                            <span class="text-white text-sm font-bold">MS</span>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium">Maria Silva</div>
+                                            <div class="text-gray-400 text-xs">Atendimento</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">maria@g2icontabilidade.com</td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-warning">Atendimento</span>
+                                </td>
+                                <td class="py-3 px-4"><span class="badge badge-success">Ativo</span></td>
+                                <td class="py-3 px-4">13/03/2024 09:15</td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 edit-btn" data-id="003">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="003">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 ml-2 reset-btn" data-id="003">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">004</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gradient-to-r from-gray-600 to-gray-400 flex items-center justify-center mr-3">
+                                            <span class="text-white text-sm font-bold">CP</span>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium">Carlos Pereira</div>
+                                            <div class="text-gray-400 text-xs">Financeiro</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">carlos@g2icontabilidade.com</td>
+                                <td class="py-3 px-4">
+                                    <span class="badge badge-info">Financeiro</span>
+                                </td>
+                                <td class="py-3 px-4"><span class="badge badge-danger">Inativo</span></td>
+                                <td class="py-3 px-4">05/03/2024 11:20</td>
+                                <td class="py-3 px-4">
+                                    <button class="text-purple-400 hover:text-purple-300 mr-2 edit-btn" data-id="004">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-400 hover:text-red-300 delete-btn" data-id="004">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                    <button class="text-blue-400 hover:text-blue-300 ml-2 reset-btn" data-id="004">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Permissões -->
+            <div class="card-glass p-6 mt-6">
+                <h3 class="text-xl font-bold text-white mb-4">Permissões por Perfil</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-4 rounded-lg bg-gray-800/50">
+                        <h4 class="font-bold text-white mb-3">Administrador</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Acesso total ao sistema</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Gerenciamento de usuários</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Configurações do sistema</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-gray-800/50">
+                        <h4 class="font-bold text-white mb-3">Contador</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Gerenciamento de clientes</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Visualização de relatórios</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-times-circle text-red-400 mr-2"></i>
+                                <span>Gerenciamento de usuários</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-lg bg-gray-800/50">
+                        <h4 class="font-bold text-white mb-3">Atendimento</h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Visualização de clientes</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                                <span>Gerenciamento de orçamentos</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i class="fas fa-times-circle text-red-400 mr-2"></i>
+                                <span>Configurações do sistema</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 p-6 border-t border-gray-800">
+            <div class="text-center">
+                <p class="text-gray-500">
+                    &copy; 2024 G2I Contabilidade LTDA. CNPJ: 42.623.639/0001-73. Sistema Administrativo
+                </p>
+                <p class="text-gray-600 text-sm mt-2">
+                    <span class="text-purple-400">Usuários ativos: 3</span> | Última atualização: 15/03/2024
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Adicionar/Editar Usuário -->
+    <div id="usuarioModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-white" id="modalTitle">Novo Usuário</h3>
+                        <button id="closeModal" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <form id="usuarioForm" class="space-y-6">
+                        <input type="hidden" id="usuarioId">
+
+                        <div>
+                            <label for="nomeUsuario" class="block text-gray-300 mb-2">Nome Completo *</label>
+                            <input type="text" id="nomeUsuario" class="input-modern w-full px-4 py-3" required>
+                        </div>
+
+                        <div>
+                            <label for="emailUsuario" class="block text-gray-300 mb-2">E-mail *</label>
+                            <input type="email" id="emailUsuario" class="input-modern w-full px-4 py-3" required>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="perfilUsuario" class="block text-gray-300 mb-2">Perfil *</label>
+                                <select id="perfilUsuario" class="input-modern w-full px-4 py-3" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="contador">Contador</option>
+                                    <option value="atendimento">Atendimento</option>
+                                    <option value="financeiro">Financeiro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="statusUsuario" class="block text-gray-300 mb-2">Status *</label>
+                                <select id="statusUsuario" class="input-modern w-full px-4 py-3" required>
+                                    <option value="ativo">Ativo</option>
+                                    <option value="inativo">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="senhaFields">
+                            <div>
+                                <label for="senhaUsuario" class="block text-gray-300 mb-2">Senha *</label>
+                                <input type="password" id="senhaUsuario" class="input-modern w-full px-4 py-3" required>
+                            </div>
+
+                            <div>
+                                <label for="confirmaSenha" class="block text-gray-300 mb-2">Confirmar Senha *</label>
+                                <input type="password" id="confirmaSenha" class="input-modern w-full px-4 py-3"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-4 pt-6 border-t border-gray-800">
+                            <button type="button" id="cancelBtn" class="px-6 py-2.5 text-gray-400 hover:text-white">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn-modern px-6 py-2.5 text-white">
+                                Salvar Usuário
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Resetar Senha -->
+    <div id="resetModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <div
+                            class="w-16 h-16 rounded-full bg-blue-900/30 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-key text-blue-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Resetar Senha</h3>
+                        <p class="text-gray-400" id="resetMessage">Deseja resetar a senha deste usuário?</p>
+                    </div>
+
+                    <form id="resetForm" class="space-y-6">
+                        <div>
+                            <label for="novaSenha" class="block text-gray-300 mb-2">Nova Senha *</label>
+                            <input type="password" id="novaSenha" class="input-modern w-full px-4 py-3" required>
+                        </div>
+
+                        <div>
+                            <label for="confirmaNovaSenha" class="block text-gray-300 mb-2">Confirmar Nova Senha
+                                *</label>
+                            <input type="password" id="confirmaNovaSenha" class="input-modern w-full px-4 py-3"
+                                required>
+                        </div>
+
+                        <div class="flex justify-center space-x-4">
+                            <button type="button" id="cancelReset" class="px-6 py-2.5 text-gray-400 hover:text-white">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn-modern px-6 py-2.5 text-white">
+                                Resetar Senha
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-red-900/30 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-exclamation-triangle text-red-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Confirmar Exclusão</h3>
+                        <p class="text-gray-400" id="confirmMessage">Tem certeza que deseja excluir este usuário?</p>
+                    </div>
+
+                    <div class="flex justify-center space-x-4">
+                        <button id="cancelDelete" class="px-6 py-2.5 text-gray-400 hover:text-white">
+                            Cancelar
+                        </button>
+                        <button id="confirmDelete"
+                            class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        // Toggle Sidebar
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        });
+
+        // Modal Functions
+        const usuarioModal = document.getElementById('usuarioModal');
+        const resetModal = document.getElementById('resetModal');
+        const confirmModal = document.getElementById('confirmModal');
+        const addUsuarioBtn = document.getElementById('addUsuarioBtn');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const cancelReset = document.getElementById('cancelReset');
+        const cancelDelete = document.getElementById('cancelDelete');
+        const usuarioForm = document.getElementById('usuarioForm');
+        const resetForm = document.getElementById('resetForm');
+
+        let usuarioToDelete = null;
+        let usuarioToReset = null;
+
+        // Open Add Modal
+        addUsuarioBtn.addEventListener('click', function () {
+            document.getElementById('modalTitle').textContent = 'Novo Usuário';
+            document.getElementById('senhaFields').classList.remove('hidden');
+            usuarioForm.reset();
+            usuarioModal.classList.remove('hidden');
+        });
+
+        // Close Modals
+        closeModal.addEventListener('click', function () {
+            usuarioModal.classList.add('hidden');
+        });
+
+        cancelBtn.addEventListener('click', function () {
+            usuarioModal.classList.add('hidden');
+        });
+
+        cancelReset.addEventListener('click', function () {
+            resetModal.classList.add('hidden');
+        });
+
+        cancelDelete.addEventListener('click', function () {
+            confirmModal.classList.add('hidden');
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', function (event) {
+            if (event.target === usuarioModal) {
+                usuarioModal.classList.add('hidden');
+            }
+            if (event.target === resetModal) {
+                resetModal.classList.add('hidden');
+            }
+            if (event.target === confirmModal) {
+                confirmModal.classList.add('hidden');
+            }
+        });
+
+        // Edit buttons
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const usuarioId = this.getAttribute('data-id');
+                document.getElementById('modalTitle').textContent = 'Editar Usuário';
+                document.getElementById('senhaFields').classList.add('hidden');
+                document.getElementById('usuarioId').value = usuarioId;
+
+                // Preencher formulário com dados do usuário (mock)
+                document.getElementById('nomeUsuario').value = 'João Rodrigo';
+                document.getElementById('emailUsuario').value = 'joao@g2icontabilidade.com';
+                document.getElementById('perfilUsuario').value = 'contador';
+                document.getElementById('statusUsuario').value = 'ativo';
+
+                usuarioModal.classList.remove('hidden');
+            });
+        });
+
+        // Reset password buttons
+        document.querySelectorAll('.reset-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                usuarioToReset = this.getAttribute('data-id');
+                resetModal.classList.remove('hidden');
+            });
+        });
+
+        // Delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                usuarioToDelete = this.getAttribute('data-id');
+                confirmModal.classList.remove('hidden');
+            });
+        });
+
+        // Form submission - Usuário
+        usuarioForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const usuarioData = {
+                id: document.getElementById('usuarioId').value,
+                nome: document.getElementById('nomeUsuario').value,
+                email: document.getElementById('emailUsuario').value,
+                perfil: document.getElementById('perfilUsuario').value,
+                status: document.getElementById('statusUsuario').value
+            };
+
+            if (document.getElementById('senhaFields').classList.contains('hidden') === false) {
+                const senha = document.getElementById('senhaUsuario').value;
+                const confirmaSenha = document.getElementById('confirmaSenha').value;
+
+                if (senha !== confirmaSenha) {
+                    alert('As senhas não coincidem!');
+                    return;
+                }
+
+                usuarioData.senha = senha;
+            }
+
+            console.log('Usuário salvo:', usuarioData);
+            alert('Usuário salvo com sucesso!');
+            usuarioModal.classList.add('hidden');
+            location.reload();
+        });
+
+        // Form submission - Reset Password
+        resetForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const novaSenha = document.getElementById('novaSenha').value;
+            const confirmaNovaSenha = document.getElementById('confirmaNovaSenha').value;
+
+            if (novaSenha !== confirmaNovaSenha) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+
+            console.log('Resetar senha do usuário:', usuarioToReset);
+            console.log('Nova senha:', novaSenha);
+            alert('Senha resetada com sucesso!');
+            resetModal.classList.add('hidden');
+            resetForm.reset();
+        });
+
+        // Confirm delete
+        document.getElementById('confirmDelete').addEventListener('click', function () {
+            if (usuarioToDelete) {
+                console.log('Excluir usuário:', usuarioToDelete);
+                alert('Usuário excluído com sucesso!');
+                confirmModal.classList.add('hidden');
+                location.reload();
+            }
+        });
+
+        // Initialize DataTable
+        $(document).ready(function () {
+            $('#usuariosTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json'
+                },
+                pageLength: 10,
+                lengthChange: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                dom: '<"top"f>rt<"bottom"ip><"clear">'
+            });
+        });
+
+        // Mobile responsive
+        function handleResize() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('collapsed');
+                mainContent.classList.add('expanded');
+            } else {
+                sidebar.classList.remove('collapsed');
+                mainContent.classList.remove('expanded');
+            }
+        }
+
+        // Initial check
+        handleResize();
+
+        // Listen for resize
+        window.addEventListener('resize', handleResize);
+
+        // Logout com Modal
+        document.getElementById('logoutBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Criar modal de logout
+            const logoutModal = document.createElement('div');
+            logoutModal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80';
+            logoutModal.innerHTML = `
+        <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800 animate-fadeIn">
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-sign-out-alt text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Confirmar Saída</h3>
+                    <p class="text-gray-400">Tem certeza que deseja sair do sistema?</p>
+                </div>
+                
+                <div class="p-4 rounded-lg bg-gray-800/50 mb-6">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
+                            <span class="text-white font-bold">AD</span>
+                        </div>
+                        <div>
+                            <div class="text-white font-medium">${sessionStorage.getItem('g2i_user_name') || 'Administrador'}</div>
+                            <div class="text-gray-400 text-sm">${sessionStorage.getItem('g2i_user_role') === 'admin' ? 'Administrador' : 'Usuário'}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button id="cancelLogout" 
+                            class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition">
+                        Cancelar
+                    </button>
+                    <button id="confirmLogout" 
+                            class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg font-medium transition">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+            // Adicionar modal ao body
+            document.body.appendChild(logoutModal);
+
+            // Função para fechar modal
+            function closeLogoutModal() {
+                logoutModal.style.opacity = '0';
+                setTimeout(() => {
+                    logoutModal.remove();
+                }, 300);
+            }
+
+            // Botão Cancelar
+            document.getElementById('cancelLogout').addEventListener('click', closeLogoutModal);
+
+            // Botão Confirmar
+            document.getElementById('confirmLogout').addEventListener('click', function () {
+                // Desabilitar botão e mostrar loading
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saindo...';
+
+                // Limpar dados da sessão
+                sessionStorage.clear();
+                localStorage.removeItem('g2i_demo_email');
+                localStorage.removeItem('g2i_demo_remember');
+
+                // Mostrar mensagem de sucesso antes de redirecionar
+                setTimeout(() => {
+                    logoutModal.innerHTML = `
+                <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800">
+                    <div class="p-8 text-center">
+                        <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-check text-green-400 text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Logout Realizado</h3>
+                        <p class="text-gray-400 mb-6">Você saiu do sistema com sucesso.</p>
+                        <div class="mt-4">
+                            <div class="loading-spinner mx-auto"></div>
+                            <p class="text-gray-500 text-sm mt-3">Redirecionando...</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                    // Redirecionar após 1.5 segundos
+                    setTimeout(() => {
+                        window.location.href = '../index.html';
+                    }, 1500);
+                }, 1000);
+            });
+
+            // Fechar modal ao clicar fora
+            logoutModal.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    closeLogoutModal();
+                }
+            });
+
+            // Fechar modal com ESC
+            const handleEscKey = function (e) {
+                if (e.key === 'Escape') {
+                    closeLogoutModal();
+                    document.removeEventListener('keydown', handleEscKey);
+                }
+            };
+            document.addEventListener('keydown', handleEscKey);
+        });
+    </script>
+</body>
+
+</html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G2I Contabilidade | Excelência em Gestão Contábil</title>
+    <title>G2I Contabilidade | Soluções Contábeis Completa</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -13,702 +13,1151 @@
         :root {
             --primary-black: #0a0a0a;
             --secondary-black: #1a1a1a;
-            --accent-blue: #0f172a;
             --electric-blue: #7600FF;
-            --light-blue: #7600FF;
-            --light-gray: #f8fafc;
+            --light-purple: #9d4dff;
+            --dark-purple: #1a0033;
+            --light-gray: #e2e8f0;
+            --medium-gray: #6b7280;
+            --dark-gray: #374151;
         }
 
         * {
             font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--primary-black);
-            color: #e2e8f0;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        .nav-transparent {
-            background-color: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* ====== NAVBAR ESTILOS ====== */
+        /* Garantir que o navbar fique acima de tudo */
+        nav {
+            background: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            width: 100% !important;
+            padding: 1rem 0 !important;
         }
 
-        .nav-solid {
-            background-color: var(--primary-black);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
-        .gradient-text {
-            background: linear-gradient(90deg, #7600FF, #7600FF);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        nav .flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .gradient-bg {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1001;
         }
 
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+        .nav-logo .logo-icon {
+            position: relative;
         }
 
+        .nav-logo .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: -0.5rem;
+            background: linear-gradient(135deg, var(--electric-blue), var(--light-purple));
+            border-radius: 0.75rem;
+            filter: blur(8px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .nav-logo .logo-icon-inner {
+            background: black;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-logo-text h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .nav-logo-text h2 span {
+            color: var(--electric-blue);
+        }
+
+        .nav-logo-text p {
+            font-size: 0.75rem;
+            color: var(--medium-gray);
+        }
+
+        /* Menu desktop */
+        .nav-menu-desktop {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu-desktop {
+                display: none;
+            }
+        }
+
+        .nav-link {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--light-purple);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--electric-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, var(--electric-blue), var(--light-purple));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
+        }
+
+        /* Menu mobile */
+        .nav-menu-mobile {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu-mobile {
+                display: block;
+            }
+        }
+
+        .mobile-menu-button {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-button:hover {
+            color: white;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 6rem 2rem 2rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.active{
+            background: rgba(5, 5, 5, 1) !important;
+            /* Mais escuro: 5,5,5 em vez de 10,10,10 */
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .mobile-close-button {
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .mobile-menu-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 1.25rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-links a:hover {
+            color: var(--light-purple);
+            background: rgba(118, 0, 255, 0.1);
+        }
+
+        .mobile-menu-button-nav {
+            margin-top: 2rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Espaço para o navbar fixo */
+        body {
+            padding-top: 80px;
+        }
+
+        /* ====== Classes de Background ====== */
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0a0a 0%, var(--dark-purple) 100%);
+        }
+
+        .footer-gradient {
+            background: linear-gradient(135deg, #0a0a0a 0%, #0f0820 100%);
+        }
+
+        /* ====== Classes de Botões ====== */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--electric-blue), var(--light-purple));
+            transition: all 0.3s ease;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--light-purple);
+        }
+
+        /* ====== Classes de Cards ====== */
         .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .card-glass-dark {
             background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
         }
 
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .login-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            animation: modalSlideIn 0.4s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-60px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-            }
-        }
-
         .stat-card {
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(118, 0, 255, 0.1), rgba(157, 77, 255, 0.05));
+            border: 1px solid rgba(118, 0, 255, 0.2);
         }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ====== Classes de Formulário ====== */
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            color: var(--light-gray);
+            padding: 0.75rem 1rem;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #7600FF, #7600FF);
         }
 
-        .service-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(29, 78, 216, 0.2), rgba(59, 130, 246, 0.1));
-            border: 1px solid rgba(59, 130, 246, 0.2);
+        .form-input:focus {
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
         }
 
-        .input-modern {
+        .form-input::placeholder {
+            color: var(--medium-gray);
+        }
+
+        .form-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--light-gray);
+            padding: 0.75rem 1rem;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .form-textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--light-gray);
+            padding: 0.75rem 1rem;
+            width: 100%;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-textarea:focus {
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
+        }
+
+        /* ====== Classes de Formulário específicas do contato ====== */
+        .contact-form-input {
             background: rgba(15, 23, 42, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             transition: all 0.3s ease;
+            color: white;
+            padding: 0.75rem 1rem;
+            width: 100%;
         }
 
-        .input-modern:focus {
-            border-color: #7600FF;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        .contact-form-input:focus {
+            border-color: var(--electric-blue);
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
             outline: none;
         }
 
-        .btn-modern {
-            background: linear-gradient(135deg, #7600FF, #7600FF);
+        .contact-form-input::placeholder {
+            color: var(--medium-gray);
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, var(--electric-blue), var(--light-purple));
             border-radius: 10px;
             font-weight: 600;
             transition: all 0.3s ease;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            width: 100%;
         }
 
-        .btn-modern:hover {
+        .contact-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(29, 78, 216, 0.3);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
         }
 
-        .btn-outline {
-            border: 2px solid #7600FF;
-            border-radius: 10px;
-            font-weight: 600;
+        .contact-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ====== Classes de Ícones e Elementos Visuais ====== */
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(118, 0, 255, 0.2), rgba(157, 77, 255, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .icon-wrapper-purple {
+            background: linear-gradient(135deg, rgba(118, 0, 255, 0.2), rgba(157, 77, 255, 0.1));
+        }
+
+        /* ====== Classes de Utilidade ====== */
+        .hidden {
+            display: none !important;
+        }
+
+        .visible {
+            display: block !important;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--electric-blue), var(--light-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ====== Classes de Animações ====== */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        .transition-all {
             transition: all 0.3s ease;
         }
 
-        .btn-outline:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-            transform: translateY(-2px);
+        /* ====== Classes de Layout ====== */
+        .container-max {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-padding {
+            padding: 5rem 1rem;
+        }
+
+        /* ====== Classes de Checkbox/Radio Personalizadas ====== */
+        input[type="checkbox"],
+        input[type="radio"] {
+            accent-color: var(--electric-blue);
+        }
+
+        /* ====== Classes de Estados ====== */
+        .error-border {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+
+        .success-border {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            color: #10b981;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ====== Classes Responsivas ====== */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .mobile-stack {
+                flex-direction: column !important;
+            }
+
+            .mobile-center {
+                text-align: center !important;
+            }
+
+            .mobile-full {
+                width: 100% !important;
+            }
+
+            .mobile-hidden {
+                display: none !important;
+            }
+
+            .section-padding {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* ====== Animações Keyframes ====== */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* ====== Classes de Modal/Overlay ====== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal-content {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* ====== Classes de Loading ====== */
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--electric-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
 
-<body class="bg-black text-gray-200">
-    <!-- Header/Navigation -->
-    <header class="fixed w-full z-50">
-        <nav id="navbar" class="py-5 transition-all duration-300">
-            <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="bg-black/90 backdrop-blur-sm border-b border-gray-900 fixed w-full z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <div class="flex items-center space-x-3">
-                    <div class="relative">
-                        <div
-                            class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-lg blur opacity-30">
-                        </div>
-                        <div class="relative bg-black p-3 rounded-lg">
-                            <i class="fas fa-calculator text-blue-400 text-2xl"></i>
+                <div class="nav-logo">
+                    <div class="logo-icon">
+                        <div class="logo-icon-inner">
+                            <i class="fas fa-calculator text-purple-400 text-xl"></i>
                         </div>
                     </div>
-                    <div>
-                        <h1 class="text-2xl font-bold text-white">G2I<span class="text-blue-400">.</span></h1>
-                        <p class="text-xs text-gray-400">Contabilidade & Consultoria</p>
+                    <div class="nav-logo-text">
+                        <h2>G2I<span class="text-purple-400">.</span></h2>
+                        <p>Contabilidade Inteligente</p>
                     </div>
                 </div>
 
                 <!-- Desktop Menu -->
-                <div class="hidden lg:flex items-center space-x-10">
-                    <a href="#home"
-                        class="text-gray-300 hover:text-purple-500 font-medium transition duration-300 relative group">
-                        <span>Home</span>
-                        <span
-                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#sobre"
-                        class="text-gray-300 hover:text-purple-500 font-medium transition duration-300 relative group">
-                        <span>Sobre</span>
-                        <span
-                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#servicos"
-                        class="text-gray-300 hover:text-purple-500 font-medium transition duration-300 relative group">
-                        <span>Serviços</span>
-                        <span
-                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
-                    </a>
-                    <a href="#contato"
-                        class="text-gray-300 hover:text-purple-500 font-medium transition duration-300 relative group">
-                        <span>Contato</span>
-                        <span
-                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                <div class="nav-menu-desktop">
+                    <a href="#home" class="nav-link">Início</a>
+                    <a href="#servicos" class="nav-link">Serviços</a>
+                    <a href="#sobre" class="nav-link">Sobre Nós</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                    <a href="admin/login.html" class="nav-button">
+                        Área do Colaborador
                     </a>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <button id="loginBtn" class="btn-modern px-5 py-2.5 text-white hidden md:inline-flex items-center">
-                        <i class="fas fa-lock mr-2"></i>
-                        <span>Área Administrativa</span>
-                    </button>
-                    <button class="lg:hidden text-gray-300 text-2xl" id="mobileMenuBtn">
+                <!-- Mobile Menu Button -->
+                <div class="nav-menu-mobile">
+                    <button id="mobileMenuBtn" class="mobile-menu-button">
                         <i class="fas fa-bars"></i>
                     </button>
                 </div>
             </div>
+        </div>
 
-            <!-- Mobile Menu -->
-            <div id="mobileMenu" class="lg:hidden hidden bg-black border-t border-gray-800">
-                <div class="container mx-auto px-4 py-6 space-y-6">
-                    <a href="#home"
-                        class="block text-gray-300 hover:text-purple-500 font-medium transition duration-300 py-2 border-b border-gray-800">Home</a>
-                    <a href="#sobre"
-                        class="block text-gray-300 hover:text-purple-500 font-medium transition duration-300 py-2 border-b border-gray-800">Sobre</a>
-                    <a href="#servicos"
-                        class="block text-gray-300 hover:text-purple-500 font-medium transition duration-300 py-2 border-b border-gray-800">Serviços</a>
-                    <a href="#contato"
-                        class="block text-gray-300 hover:text-purple-500 font-medium transition duration-300 py-2 border-b border-gray-800">Contato</a>
-                    <button id="mobileLoginBtn" class="btn-modern px-5 py-3 text-white w-full mt-4">
-                        <i class="fas fa-lock mr-2"></i>
-                        <span>Área Administrativa</span>
-                    </button>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <div class="mobile-menu-header">
+                <button id="mobileMenuClose" class="mobile-close-button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mobile-menu-links">
+                <a href="#home" onclick="closeMobileMenu()">Início</a>
+                <a href="#servicos" onclick="closeMobileMenu()">Serviços</a>
+                <a href="#sobre" onclick="closeMobileMenu()">Sobre Nós</a>
+                <a href="#contato" onclick="closeMobileMenu()">Contato</a>
+                <div class="mobile-menu-button-nav">
+                    <a href="admin/login.html" class="nav-button" onclick="closeMobileMenu()">
+                        Área do Colaborador
+                    </a>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-blue-950 opacity-90"></div>
-        <div
-            class="absolute top-20 right-10 w-72 h-72 bg-blue-900 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
-        </div>
-        <div
-            class="absolute bottom-20 left-10 w-72 h-72 bg-blue-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
-        </div>
-
-        <div class="container mx-auto px-4 md:px-8 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center">
-                <div class="lg:w-1/2 mb-12 lg:mb-0">
+    <section id="home" class="hero-gradient pt-32 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
                     <div
-                        class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-900/30 to-blue-800/30 border border-blue-800/30 mb-6">
-                        <div class="pulse-dot mr-3"></div>
-                        <span class="text-purple-500 text-sm font-medium">CNPJ 42.623.639/0001-73 • Ativa desde
-                            2021</span>
+                        class="inline-flex items-center space-x-2 bg-purple-900/30 text-purple-300 px-4 py-2 rounded-full mb-6">
+                        <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                        <span class="text-sm">Contabilidade 4.0</span>
                     </div>
 
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                        Contabilidade <span class="gradient-text">Precisa</span> para Empresas <span
-                            class="gradient-text">Modernas</span>
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Sua contabilidade
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">simplificada</span>
+                        e eficiente
                     </h1>
 
-                    <p class="text-lg text-gray-300 mb-10 max-w-2xl">
-                        Oferecemos soluções contábeis e fiscais integradas para empresas que buscam eficiência,
-                        conformidade e crescimento sustentável.
+                    <p class="text-xl text-gray-300 mb-8">
+                        Soluções contábeis completas para sua empresa crescer com segurança e tranquilidade.
+                        Automatizamos processos para você focar no que realmente importa.
                     </p>
 
-                    <div class="flex flex-col sm:flex-row gap-5">
-                        <a href="#contato" class="btn-modern px-8 py-4 text-white text-center">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contato" class="btn-primary px-8 py-4 rounded-lg font-bold text-center">
                             <i class="fas fa-calendar-check mr-2"></i> Agendar Consultoria
                         </a>
-                        <a href="#servicos" class="btn-outline px-8 py-4 text-blue-400 text-center">
-                            <i class="fas fa-chart-line mr-2"></i> Conhecer Serviços
+                        <a href="#servicos"
+                            class="px-8 py-4 rounded-lg border border-gray-700 hover:border-purple-600 text-center hover:text-purple-400 transition">
+                            <i class="fas fa-play-circle mr-2"></i> Ver Serviços
                         </a>
                     </div>
-
-                    <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-6">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-white mb-2">100%</div>
-                            <div class="text-gray-400 text-sm">Conformidade Fiscal</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-white mb-2">+50</div>
-                            <div class="text-gray-400 text-sm">Clientes Atendidos</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-white mb-2">8/5</div>
-                            <div class="text-gray-400 text-sm">Suporte Online</div>
-                        </div>
-                    </div>
                 </div>
 
-                <div class="lg:w-1/2 lg:pl-16">
-                    <div class="card-glass p-1 hover-lift">
-                        <div class="bg-gradient-to-br from-gray-900 to-black rounded-2xl p-8">
-                            <h3 class="text-2xl font-bold text-white mb-6 flex items-center">
-                                <i class="fas fa-shield-alt text-blue-400 mr-3"></i>
-                                <span>Sua Empresa Protegida</span>
-                            </h3>
-
-                            <div class="space-y-6">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center">
-                                            <i class="fas fa-check text-blue-400 text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h4 class="font-bold text-white mb-1">Contabilidade Digital Completa</h4>
-                                        <p class="text-gray-400 text-sm">Toda gestão contábil na palma da sua mão, com
-                                            relatórios em tempo real.</p>
-                                    </div>
+                <div class="relative">
+                    <div class="relative z-10 animate-float">
+                        <div class="card-glass p-8 rounded-2xl">
+                            <div class="text-center mb-8">
+                                <div class="service-icon mx-auto">
+                                    <i class="fas fa-chart-line text-purple-400 text-2xl"></i>
                                 </div>
-
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center">
-                                            <i class="fas fa-check text-blue-400 text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h4 class="font-bold text-white mb-1">Planejamento Tributário Estratégico</h4>
-                                        <p class="text-gray-400 text-sm">Otimização fiscal legal que reduz custos e
-                                            maximiza resultados.</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0 mt-1">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center">
-                                            <i class="fas fa-check text-blue-400 text-sm"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h4 class="font-bold text-white mb-1">Consultoria Empresarial Personalizada</h4>
-                                        <p class="text-gray-400 text-sm">Acompanhamento próximo para decisões
-                                            financeiras assertivas.</p>
-                                    </div>
-                                </div>
+                                <h3 class="text-2xl font-bold mb-2">Dashboard Inteligente</h3>
+                                <p class="text-gray-400">Acompanhe suas métricas em tempo real</p>
                             </div>
-
-                            <div class="mt-8 pt-6 border-t border-gray-800">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <div class="text-sm text-gray-400">Pronto para transformar sua gestão?</div>
-                                        <div class="text-white font-bold">Fale com um especialista</div>
-                                    </div>
-                                    <a href="#contato" class="text-blue-400 hover:text-blue-300">
-                                        <i class="fas fa-arrow-right text-xl"></i>
-                                    </a>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Lucro Mensal</span>
+                                    <span class="text-green-400 font-bold">+24%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Impostos Otimizados</span>
+                                    <span class="text-purple-400 font-bold">-18%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Satisfação</span>
+                                    <span class="text-yellow-400 font-bold">98%</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-purple-600/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-400/20 rounded-full blur-3xl"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Divider -->
-    <div class="section-divider"></div>
+    <!-- Stats Section -->
+    <section class="py-12 bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">500+</div>
+                    <div class="text-gray-400">Clientes Ativos</div>
+                </div>
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">R$ 15M+</div>
+                    <div class="text-gray-400">Impostos Otimizados</div>
+                </div>
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">24/7</div>
+                    <div class="text-gray-400">Suporte Especializado</div>
+                </div>
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">98%</div>
+                    <div class="text-gray-400">Satisfação do Cliente</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Sobre Section -->
-    <section id="sobre" class="py-20 bg-black">
-        <div class="container mx-auto px-4 md:px-8">
+    <!-- Services Section -->
+    <section id="servicos" class="py-20">
+        <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-                    Sobre a <span class="gradient-text">G2I Contabilidade</span>
-                </h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Uma empresa jovem e moderna, com expertise para simplificar a complexidade contábil e fiscal do seu
-                    negócio.
+                <h2 class="text-4xl font-bold mb-4">Nossos <span class="text-purple-400">Serviços</span></h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Oferecemos soluções contábeis completas para empresas de todos os tamanhos e segmentos.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <div class="card-glass p-8 hover-lift">
-                        <h3 class="text-2xl font-bold text-white mb-6">Nossa Missão</h3>
-                        <p class="text-gray-300 mb-6">
-                            Oferecer soluções contábeis integradas e personalizadas que permitam aos empreendedores
-                            focarem no que realmente importa: o crescimento do seu negócio.
-                        </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-balance-scale text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Contabilidade Completa</h3>
+                    <p class="text-gray-400 mb-6">
+                        Gestão completa da sua contabilidade com relatórios detalhados e acompanhamento personalizado.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Escrituração Contábil</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Demonstrativos Financeiros</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Análise de Balanço</span>
+                        </li>
+                    </ul>
+                </div>
 
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 rounded-full bg-blue-500 mr-3"></div>
-                                <span class="text-gray-300">Atendimento personalizado e próximo</span>
+                <!-- Service 2 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Departamento Fiscal</h3>
+                    <p class="text-gray-400 mb-6">
+                        Gestão fiscal completa com planejamento tributário e otimização de impostos.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Apuração de Impostos</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Planejamento Tributário</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Obrigações Acessórias</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-users text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Folha de Pagamento</h3>
+                    <p class="text-gray-400 mb-6">
+                        Gestão completa da folha de pagamento com cálculos precisos e conformidade legal.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Cálculo de Holerites</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>GPS e Relatórios</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Conformidade Trabalhista</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Abertura de Empresa</h3>
+                    <p class="text-gray-400 mb-6">
+                        Processo completo de abertura de empresa com consultoria especializada.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Consultoria Jurídica</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Registro Junta Comercial</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Alvarás e Licenças</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Consultoria Financeira</h3>
+                    <p class="text-gray-400 mb-6">
+                        Análise e planejamento financeiro estratégico para o crescimento do seu negócio.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Análise de Rentabilidade</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Planejamento Orçamentário</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Projeções Financeiras</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-lock text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Regularização Fiscal</h3>
+                    <p class="text-gray-400 mb-6">
+                        Regularização de pendências fiscais e trabalhistas com segurança e discrição.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Recuperação de Créditos</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Negociação com Órgãos</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Parcelamentos e Acordos</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-20 bg-gray-900/30">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Sobre a <span class="text-purple-400">G2I Contabilidade</span>
+                    </h2>
+                    <p class="text-gray-400 mb-6 text-lg">
+                        Somos uma empresa de contabilidade moderna e inovadora, focada em transformar números em
+                        insights valiosos para o crescimento do seu negócio.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                        Com mais de 10 anos de experiência no mercado, combinamos expertise contábil com tecnologia de
+                        ponta para oferecer soluções completas e personalizadas para cada cliente.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-star text-purple-400"></i>
                             </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 rounded-full bg-blue-500 mr-3"></div>
-                                <span class="text-gray-300">Tecnologia para eficiência operacional</span>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Excelência Comprovada</h4>
+                                <p class="text-gray-400">Certificados e premiações no setor contábil</p>
                             </div>
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 rounded-full bg-blue-500 mr-3"></div>
-                                <span class="text-gray-300">Conformidade legal garantida</span>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-shield-alt text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Segurança de Dados</h4>
+                                <p class="text-gray-400">Sistemas protegidos e backups automáticos</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-headset text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Suporte Dedicado</h4>
+                                <p class="text-gray-400">Contador responsável para cada cliente</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div>
-                    <div class="gradient-bg p-8 rounded-2xl">
-                        <h3 class="text-2xl font-bold text-white mb-6">Dados Cadastrais</h3>
+                <div class="relative">
+                    <div class="card-glass p-8 rounded-2xl">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold mb-4">Por que escolher a G2I?</h3>
+                            <p class="text-gray-400">Diferenciais que nos destacam no mercado</p>
+                        </div>
 
                         <div class="space-y-6">
-                            <div>
-                                <div class="text-gray-400 text-sm mb-1">Razão Social</div>
-                                <div class="text-white font-medium">G2I Contabilidade LTDA</div>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <div class="text-gray-400 text-sm mb-1">CNPJ</div>
-                                    <div class="text-white font-medium">42.623.639/0001-73</div>
+                            <div class="flex items-center">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">01</span>
                                 </div>
                                 <div>
-                                    <div class="text-gray-400 text-sm mb-1">Fundação</div>
-                                    <div class="text-white font-medium">07/07/2021</div>
+                                    <h4 class="font-bold text-white mb-1">Tecnologia Avançada</h4>
+                                    <p class="text-gray-400 text-sm">Sistema próprio com dashboard em tempo real</p>
                                 </div>
                             </div>
 
-                            <div>
-                                <div class="text-gray-400 text-sm mb-1">Localização</div>
-                                <div class="text-white font-medium">Av. Dona Anila, 51 - Olaria</div>
-                                <div class="text-gray-300">Itapecerica da Serra - SP | CEP: 06859-000</div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-4 border-t border-gray-800">
-                                <div>
-                                    <div class="text-gray-400 text-sm mb-1">Status</div>
-                                    <div class="flex items-center">
-                                        <div class="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
-                                        <span class="text-white font-medium">Empresa Ativa</span>
-                                    </div>
+                            <div class="flex items-center">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">02</span>
                                 </div>
                                 <div>
-                                    <div class="text-gray-400 text-sm mb-1">Optante pelo Simples</div>
-                                    <div class="text-green-400 font-medium">SIM</div>
+                                    <h4 class="font-bold text-white mb-1">Transparência Total</h4>
+                                    <p class="text-gray-400 text-sm">Acesso completo a todos os processos e documentos
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">03</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Custo-Benefício</h4>
+                                    <p class="text-gray-400 text-sm">Planos flexíveis que se adaptam ao seu negócio</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">04</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Resultados Comprovados</h4>
+                                    <p class="text-gray-400 text-sm">Clientes com crescimento médio de 30% ao ano</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Stats -->
-            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="stat-card card-glass p-8 text-center">
-                    <div class="service-icon mx-auto mb-6">
-                        <i class="fas fa-briefcase text-blue-400 text-2xl"></i>
-                    </div>
-                    <div class="text-4xl font-bold text-white mb-2">Micro Empresa</div>
-                    <div class="text-gray-400">Porte da Empresa</div>
-                </div>
-
-                <div class="stat-card card-glass p-8 text-center">
-                    <div class="service-icon mx-auto mb-6">
-                        <i class="fas fa-landmark text-blue-400 text-2xl"></i>
-                    </div>
-                    <div class="text-4xl font-bold text-white mb-2">Sociedade Limitada</div>
-                    <div class="text-gray-400">Natureza Jurídica</div>
-                </div>
-
-                <div class="stat-card card-glass p-8 text-center">
-                    <div class="service-icon mx-auto mb-6">
-                        <i class="fas fa-money-bill-wave text-blue-400 text-2xl"></i>
-                    </div>
-                    <div class="text-4xl font-bold text-white mb-2">R$ 10.000,00</div>
-                    <div class="text-gray-400">Capital Social</div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- Divider -->
-    <div class="section-divider"></div>
-
-    <!-- Serviços Section -->
-    <section id="servicos" class="py-20 bg-black">
-        <div class="container mx-auto px-4 md:px-8">
+    <!-- Testimonials -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-                    Serviços <span class="gradient-text">Especializados</span>
+                <h2 class="text-4xl font-bold mb-4">O que nossos <span class="text-purple-400">clientes dizem</span>
                 </h2>
-                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Oferecemos um portfólio completo de soluções contábeis e financeiras para empresas de todos os
-                    tamanhos.
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Confira a experiência de quem já transformou sua contabilidade com a G2I.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Serviço 1 -->
-                <div class="card-glass p-8 hover-lift">
-                    <div class="service-icon mb-6">
-                        <i class="fas fa-calculator text-blue-400 text-2xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold text-xl">MF</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Marcos Fernandes</h4>
+                            <p class="text-gray-400 text-sm">CEO TechSolutions</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Contabilidade Digital</h3>
-                    <p class="text-gray-400 mb-6">
-                        Gestão contábil completa com tecnologia de ponta para escrituração, balanços e relatórios
-                        financeiros.
+                    <p class="text-gray-300 italic mb-6">
+                        "A G2I revolucionou nossa gestão financeira. O dashboard em tempo real nos permite tomar
+                        decisões estratégicas com muito mais segurança."
                     </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Escrituração contábil digital</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Demonstrações financeiras</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Relatórios gerenciais mensais</span>
-                        </li>
-                    </ul>
-                    <a href="#contato" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Saiba mais <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
                 </div>
 
-                <!-- Serviço 2 -->
-                <div class="card-glass p-8 hover-lift">
-                    <div class="service-icon mb-6">
-                        <i class="fas fa-chart-line text-blue-400 text-2xl"></i>
+                <div class="testimonial-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold text-xl">AP</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Ana Paula Silva</h4>
+                            <p class="text-gray-400 text-sm">Diretora VivaBem Saúde</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Consultoria Fiscal</h3>
-                    <p class="text-gray-400 mb-6">
-                        Planejamento tributário estratégico para reduzir carga fiscal dentro da legalidade e aumentar
-                        sua lucratividade.
+                    <p class="text-gray-300 italic mb-6">
+                        "Excelente atendimento e profissionalismo. A equipe da G2I nos ajudou a reduzir 25% dos custos
+                        tributários no primeiro ano."
                     </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Planejamento tributário</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Declarações acessórias</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Auditoria fiscal preventiva</span>
-                        </li>
-                    </ul>
-                    <a href="#contato" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Saiba mais <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
                 </div>
 
-                <!-- Serviço 3 -->
-                <div class="card-glass p-8 hover-lift">
-                    <div class="service-icon mb-6">
-                        <i class="fas fa-users text-blue-400 text-2xl"></i>
+                <div class="testimonial-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold text-xl">RC</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Ricardo Costa</h4>
+                            <p class="text-gray-400 text-sm">Sócio ConstruMax</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Departamento Pessoal</h3>
-                    <p class="text-gray-400 mb-6">
-                        Gestão completa da folha de pagamento, admissões, rescisões e todas as obrigações trabalhistas
-                        da sua empresa.
+                    <p class="text-gray-300 italic mb-6">
+                        "Sistema muito intuitivo e equipe sempre disponível. Finalmente encontrei uma contabilidade que
+                        fala a mesma língua que o empresário."
                     </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Folha de pagamento</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>eSocial e obrigações</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Consultoria trabalhista</span>
-                        </li>
-                    </ul>
-                    <a href="#contato" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Saiba mais <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-
-                <!-- Serviço 4 -->
-                <div class="card-glass p-8 hover-lift">
-                    <div class="service-icon mb-6">
-                        <i class="fas fa-building text-blue-400 text-2xl"></i>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Abertura de Empresa</h3>
-                    <p class="text-gray-400 mb-6">
-                        Acompanhamos todo o processo de abertura da sua empresa, desde o planejamento inicial até a
-                        emissão de alvarás.
-                    </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Consultoria pré-abertura</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Registro e legalização</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Enquadramento tributário</span>
-                        </li>
-                    </ul>
-                    <a href="#contato" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Saiba mais <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-
-                <!-- Serviço 5 -->
-                <div class="card-glass p-8 hover-lift">
-                    <div class="service-icon mb-6">
-                        <i class="fas fa-file-contract text-blue-400 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Regularização Fiscal</h3>
-                    <p class="text-gray-400 mb-6">
-                        Regularizamos sua situação fiscal junto aos órgãos competentes, eliminando pendências e multas.
-                    </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Recuperação de créditos</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Negociação de débitos</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Processos administrativos</span>
-                        </li>
-                    </ul>
-                    <a href="#contato" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Saiba mais <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-
-                <!-- Serviço 6 -->
-                <div class="card-glass p-8 hover-lift">
-                    <div class="service-icon mb-6">
-                        <i class="fas fa-laptop-house text-blue-400 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-4">Portal do Cliente</h3>
-                    <p class="text-gray-400 mb-6">
-                        Acesso 24h a todos os documentos, relatórios e informações da sua empresa através de uma
-                        plataforma segura.
-                    </p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Documentos online</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Comunicação direta</span>
-                        </li>
-                        <li class="flex items-center text-gray-300">
-                            <i class="fas fa-check-circle text-blue-400 mr-3"></i>
-                            <span>Dashboard personalizado</span>
-                        </li>
-                    </ul>
-                    <button id="servicesLoginBtn"
-                        class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center">
-                        Acessar portal <i class="fas fa-arrow-right ml-2"></i>
-                    </button>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Divider -->
-    <div class="section-divider"></div>
 
     <!-- Contato Section -->
     <section id="contato" class="py-20 bg-black">
         <div class="container mx-auto px-4 md:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-                    Entre em <span class="gradient-text">Contato</span>
+                    Entre em <span class="text-gradient">Contato</span>
                 </h2>
                 <p class="text-xl text-gray-400 max-w-3xl mx-auto">
                     Pronto para transformar a gestão da sua empresa? Entre em contato para uma consultoria gratuita.
@@ -717,7 +1166,7 @@
 
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Formulário -->
-                <div class="card-glass p-8">
+                <div class="card-glass-dark p-8">
                     <h3 class="text-2xl font-bold text-white mb-8">Solicitar Orçamento</h3>
 
                     <form id="budgetForm" class="space-y-6">
@@ -725,11 +1174,11 @@
                             <div>
                                 <label for="budgetName" class="block text-gray-300 mb-2 font-medium">Nome Completo
                                     *</label>
-                                <input type="text" id="budgetName" class="input-modern w-full px-4 py-3" required>
+                                <input type="text" id="budgetName" class="contact-form-input" required>
                             </div>
                             <div>
                                 <label for="budgetEmail" class="block text-gray-300 mb-2 font-medium">E-mail *</label>
-                                <input type="email" id="budgetEmail" class="input-modern w-full px-4 py-3" required>
+                                <input type="email" id="budgetEmail" class="contact-form-input" required>
                             </div>
                         </div>
 
@@ -737,17 +1186,18 @@
                             <div>
                                 <label for="budgetPhone" class="block text-gray-300 mb-2 font-medium">Telefone/WhatsApp
                                     *</label>
-                                <input type="tel" id="budgetPhone" class="input-modern w-full px-4 py-3" required>
+                                <input type="tel" id="budgetPhone" class="contact-form-input" required>
                             </div>
                             <div>
                                 <label class="block text-gray-300 mb-2 font-medium">Tipo de Cliente *</label>
                                 <div class="flex space-x-4">
                                     <label class="flex items-center">
-                                        <input type="radio" name="clientType" value="pj" class="mr-2" checked>
+                                        <input type="radio" name="clientType" value="pj" class="custom-radio mr-2"
+                                            checked>
                                         <span class="text-gray-300">Pessoa Jurídica</span>
                                     </label>
                                     <label class="flex items-center">
-                                        <input type="radio" name="clientType" value="pf" class="mr-2">
+                                        <input type="radio" name="clientType" value="pf" class="custom-radio mr-2">
                                         <span class="text-gray-300">Pessoa Física</span>
                                     </label>
                                 </div>
@@ -760,11 +1210,11 @@
                                 <div>
                                     <label for="companyName" class="block text-gray-300 mb-2 font-medium">Razão Social
                                         *</label>
-                                    <input type="text" id="companyName" class="input-modern w-full px-4 py-3" required>
+                                    <input type="text" id="companyName" class="contact-form-input" required>
                                 </div>
                                 <div>
                                     <label for="cnpj" class="block text-gray-300 mb-2 font-medium">CNPJ *</label>
-                                    <input type="text" id="cnpj" class="input-modern w-full px-4 py-3"
+                                    <input type="text" id="cnpj" class="contact-form-input"
                                         placeholder="00.000.000/0000-00" required>
                                 </div>
                             </div>
@@ -773,7 +1223,8 @@
                                 <div>
                                     <label for="employees" class="block text-gray-300 mb-2 font-medium">Número de
                                         Funcionários</label>
-                                    <select id="employees" class="input-modern w-full px-4 py-3">
+                                    <select id="employees" class="form-select">
+                                        <option value="">Selecione</option>
                                         <option value="1-5">1-5 funcionários</option>
                                         <option value="6-10">6-10 funcionários</option>
                                         <option value="11-20">11-20 funcionários</option>
@@ -784,7 +1235,8 @@
                                 <div>
                                     <label for="monthlyRevenue" class="block text-gray-300 mb-2 font-medium">Faturamento
                                         Mensal Aprox.</label>
-                                    <select id="monthlyRevenue" class="input-modern w-full px-4 py-3">
+                                    <select id="monthlyRevenue" class="form-select">
+                                        <option value="">Selecione</option>
                                         <option value="ate-10k">Até R$ 10.000</option>
                                         <option value="10k-50k">R$ 10.000 - R$ 50.000</option>
                                         <option value="50k-100k">R$ 50.000 - R$ 100.000</option>
@@ -800,44 +1252,46 @@
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="cpf" class="block text-gray-300 mb-2 font-medium">CPF *</label>
-                                    <input type="text" id="cpf" class="input-modern w-full px-4 py-3"
-                                        placeholder="000.000.000-00">
+                                    <input type="text" id="cpf" class="contact-form-input" placeholder="000.000.000-00">
                                 </div>
                                 <div>
                                     <label for="profession"
                                         class="block text-gray-300 mb-2 font-medium">Profissão</label>
-                                    <input type="text" id="profession" class="input-modern w-full px-4 py-3"
+                                    <input type="text" id="profession" class="contact-form-input"
                                         placeholder="Ex: Médico, Advogado, etc.">
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <label for="servicesNeeded" class="block text-gray-300 mb-2 font-medium">Serviços
-                                Necessários *</label>
+                            <label class="block text-gray-300 mb-2 font-medium">Serviços Necessários *</label>
                             <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="services" value="contabilidade" class="mr-2">
+                                    <input type="checkbox" name="services" value="contabilidade"
+                                        class="custom-checkbox mr-2">
                                     <span class="text-gray-300 text-sm">Contabilidade</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="services" value="fiscal" class="mr-2">
+                                    <input type="checkbox" name="services" value="fiscal" class="custom-checkbox mr-2">
                                     <span class="text-gray-300 text-sm">Impostos</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="services" value="folha" class="mr-2">
+                                    <input type="checkbox" name="services" value="folha" class="custom-checkbox mr-2">
                                     <span class="text-gray-300 text-sm">Folha de Pagamento</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="services" value="abertura" class="mr-2">
+                                    <input type="checkbox" name="services" value="abertura"
+                                        class="custom-checkbox mr-2">
                                     <span class="text-gray-300 text-sm">Abertura de Empresa</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="services" value="regularizacao" class="mr-2">
+                                    <input type="checkbox" name="services" value="regularizacao"
+                                        class="custom-checkbox mr-2">
                                     <span class="text-gray-300 text-sm">Regularização</span>
                                 </label>
                                 <label class="flex items-center">
-                                    <input type="checkbox" name="services" value="consultoria" class="mr-2">
+                                    <input type="checkbox" name="services" value="consultoria"
+                                        class="custom-checkbox mr-2">
                                     <span class="text-gray-300 text-sm">Consultoria</span>
                                 </label>
                             </div>
@@ -846,21 +1300,19 @@
                         <div>
                             <label for="budgetMessage" class="block text-gray-300 mb-2 font-medium">Informações
                                 Adicionais</label>
-                            <textarea id="budgetMessage" rows="4" class="input-modern w-full px-4 py-3"
+                            <textarea id="budgetMessage" rows="4" class="form-textarea"
                                 placeholder="Descreva suas necessidades específicas, prazos, ou outras informações relevantes..."></textarea>
                         </div>
 
                         <div class="flex items-center">
-                            <input type="checkbox" id="privacyPolicy"
-                                class="h-4 w-4 rounded bg-gray-800 border-gray-700 text-blue-500 focus:ring-blue-600"
-                                required>
-                            <label for="privacyPolicy" class="ml-2 text-gray-300 text-sm">
+                            <input type="checkbox" id="privacyPolicy" class="custom-checkbox mr-2" required>
+                            <label for="privacyPolicy" class="text-gray-300 text-sm">
                                 Li e aceito a <a href="/politica-privacidade"
-                                    class="text-blue-400 hover:text-blue-300">Política de Privacidade</a> *
+                                    class="text-purple-400 hover:text-purple-300">Política de Privacidade</a> *
                             </label>
                         </div>
 
-                        <button type="submit" class="btn-modern w-full py-4 text-white font-bold">
+                        <button type="submit" class="contact-btn">
                             <i class="fas fa-calculator mr-2"></i> Solicitar Orçamento Gratuito
                         </button>
                     </form>
@@ -873,13 +1325,10 @@
 
                         <div class="space-y-8">
                             <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <div
-                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-900 to-blue-800 flex items-center justify-center">
-                                        <i class="fas fa-map-marker-alt text-blue-300 text-xl"></i>
-                                    </div>
+                                <div class="icon-wrapper icon-wrapper-purple">
+                                    <i class="fas fa-map-marker-alt text-purple-300 text-xl"></i>
                                 </div>
-                                <div class="ml-6">
+                                <div class="ml-4">
                                     <h4 class="text-lg font-bold text-white mb-1">Endereço</h4>
                                     <p class="text-gray-300">Avenida Dona Anila, 51 - Olaria</p>
                                     <p class="text-gray-300">Itapecerica da Serra - SP</p>
@@ -888,13 +1337,10 @@
                             </div>
 
                             <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <div
-                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-900 to-blue-800 flex items-center justify-center">
-                                        <i class="fas fa-phone-alt text-blue-300 text-xl"></i>
-                                    </div>
+                                <div class="icon-wrapper icon-wrapper-purple">
+                                    <i class="fas fa-phone-alt text-purple-300 text-xl"></i>
                                 </div>
-                                <div class="ml-6">
+                                <div class="ml-4">
                                     <h4 class="text-lg font-bold text-white mb-1">Telefone</h4>
                                     <p class="text-gray-300">(11) 4310-XXXX</p>
                                     <p class="text-gray-400">Segunda a Sexta, 8h às 18h</p>
@@ -902,13 +1348,10 @@
                             </div>
 
                             <div class="flex items-start">
-                                <div class="flex-shrink-0">
-                                    <div
-                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-900 to-blue-800 flex items-center justify-center">
-                                        <i class="fas fa-envelope text-blue-300 text-xl"></i>
-                                    </div>
+                                <div class="icon-wrapper icon-wrapper-purple">
+                                    <i class="fas fa-envelope text-purple-300 text-xl"></i>
                                 </div>
-                                <div class="ml-6">
+                                <div class="ml-4">
                                     <h4 class="text-lg font-bold text-white mb-1">E-mail</h4>
                                     <p class="text-gray-300">contato@g2icontabilidade.com</p>
                                     <p class="text-gray-300">financeiro@g2icontabilidade.com</p>
@@ -918,7 +1361,7 @@
                             <div class="text-start">
                                 <p class="text-gray-400 mb-4">Dúvidas rápidas?</p>
                                 <a href="https://wa.me/55114310XXXX" target="_blank"
-                                    class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition">
+                                    class="btn-secondary px-6 py-3 rounded-lg font-medium inline-flex items-center">
                                     <i class="fab fa-whatsapp mr-2 text-xl"></i>
                                     Falar no WhatsApp
                                 </a>
@@ -940,7 +1383,7 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-gray-300">Plantão Contábil</span>
-                                <span class="text-blue-400 font-medium">24h via Portal</span>
+                                <span class="text-purple-400 font-medium">24h via Portal</span>
                             </div>
                         </div>
 
@@ -957,39 +1400,42 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-t from-black to-gray-900 pt-12 pb-8 border-t border-gray-900">
-        <div class="container mx-auto px-4 md:px-8">
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
+    <footer class="footer-gradient py-12 border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <div class="flex items-center mb-6">
+                    <div class="flex items-center space-x-3 mb-6">
                         <div class="relative">
                             <div
-                                class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-lg blur opacity-30">
+                                class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30">
                             </div>
                             <div class="relative bg-black p-2 rounded-lg">
-                                <i class="fas fa-calculator text-blue-400 text-xl"></i>
+                                <i class="fas fa-calculator text-purple-400 text-xl"></i>
                             </div>
                         </div>
-                        <div class="ml-4">
-                            <h2 class="text-2xl font-bold text-white">G2I<span class="text-blue-400">.</span></h2>
-                            <p class="text-xs text-gray-400">Contabilidade & Consultoria</p>
+                        <div>
+                            <h2 class="text-2xl font-bold">G2I<span class="text-purple-400">.</span></h2>
+                            <p class="text-xs text-gray-400">Contabilidade Inteligente</p>
                         </div>
                     </div>
                     <p class="text-gray-400 mb-6">
-                        CNPJ: 42.623.639/0001-73<br>
-                        Especialistas em contabilidade para micro e pequenas empresas.
+                        Soluções contábeis completas e inovadoras para o crescimento do seu negócio.
                     </p>
                     <div class="flex space-x-4">
                         <a href="#"
-                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-purple-500 hover:text-white transition">
-                            <i class="fab fa-linkedin-in"></i>
+                            class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#"
-                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-purple-500 hover:text-white transition">
+                            class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
                             <i class="fab fa-instagram"></i>
                         </a>
                         <a href="#"
-                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-purple-500 hover:text-white transition">
+                            class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -998,354 +1444,574 @@
                 <div>
                     <h3 class="text-lg font-bold text-white mb-6">Serviços</h3>
                     <ul class="space-y-3">
-                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-500 transition">Contabilidade
-                                Digital</a></li>
-                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-500 transition">Consultoria
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Contabilidade
+                                Completa</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Departamento
                                 Fiscal</a></li>
-                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-500 transition">Departamento
-                                Pessoal</a></li>
-                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-500 transition">Abertura de
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Folha de
+                                Pagamento</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Abertura de
                                 Empresa</a></li>
-                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-500 transition">Regularização
-                                Fiscal</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Consultoria
+                                Financeira</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="text-lg font-bold text-white mb-6">Links Rápidos</h3>
                     <ul class="space-y-3">
-                        <li><a href="#home" class="text-gray-400 hover:text-blue-400 transition">Home</a></li>
-                        <li><a href="#sobre" class="text-gray-400 hover:text-blue-400 transition">Sobre Nós</a></li>
-                        <li><a href="#servicos" class="text-gray-400 hover:text-blue-400 transition">Serviços</a></li>
-                        <li><a href="#contato" class="text-gray-400 hover:text-blue-400 transition">Contato</a></li>
-                        <li><button id="footerLoginBtn" class="text-gray-400 hover:text-blue-400 transition">Área
-                                Administrativa</button></li>
+                        <li><a href="#home" class="text-gray-400 hover:text-purple-400 transition">Início</a></li>
+                        <li><a href="#sobre" class="text-gray-400 hover:text-purple-400 transition">Sobre Nós</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Serviços</a></li>
+                        <li><a href="#contato" class="text-gray-400 hover:text-purple-400 transition">Contato</a></li>
+                        <li><a href="admin/login.html" class="text-gray-400 hover:text-purple-400 transition">Área do
+                                Cliente</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6">Informações</h3>
+                    <ul class="space-y-3">
+                        <li class="text-gray-400">
+                            <i class="fas fa-file-contract mr-2 text-purple-400"></i>
+                            CNPJ: 42.623.639/0001-73
+                        </li>
+                        <li class="text-gray-400">
+                            <i class="fas fa-calendar-alt mr-2 text-purple-400"></i>
+                            Seg - Sex: 9h às 18h
+                        </li>
+                        <li class="text-gray-400">
+                            <i class="fas fa-phone mr-2 text-purple-400"></i>
+                            (11) 99999-9999
+                        </li>
+                        <li class="text-gray-400">
+                            <i class="fas fa-envelope mr-2 text-purple-400"></i>
+                            contato@g2icontabilidade.com.br
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-gray-800 text-center">
+            <div class="border-t border-gray-800 pt-8 text-center">
                 <p class="text-gray-500">
-                    &copy; 2024 G2I Contabilidade LTDA. CNPJ: 42.623.639/0001-73. Todos os direitos reservados. |
-                    <span class="text-purple-500">Desenvolvido com excelência Altasis</span>
+                    &copy; 2024 G2I Contabilidade LTDA. Todos os direitos reservados.
                 </p>
-                <div class="mt-4 flex justify-center space-x-6 text-sm">
-                    <a href="/termos-de-uso" class="text-gray-500 hover:text-purple-500 transition">Termos de Uso</a>
-                    <a href="/politica-privacidade" class="text-gray-500 hover:text-purple-500 transition">Política de
-                        Privacidade</a>
-                    <a href="/lgpd" class="text-gray-500 hover:text-purple-500 transition">LGPD</a>
-                </div>
+                <p class="text-gray-600 text-sm mt-2">
+                    Desenvolvido com <i class="fas fa-heart text-purple-400"></i> para transformar sua contabilidade
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="login-modal">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div
-                class="modal-content bg-gradient-to-b from-gray-900 to-black rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-800">
-                <div class="p-8">
-                    <div class="flex justify-between items-center mb-8">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Área Administrativa</h3>
-                            <p class="text-gray-400 text-sm mt-1">Acesso restrito à equipe G2I</p>
-                        </div>
-                        <button id="closeLogin" class="text-gray-500 hover:text-white text-2xl">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
+    <!-- Back to Top -->
+    <button id="backToTop"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition opacity-0 z-40">
+        <i class="fas fa-arrow-up text-white"></i>
+    </button>
 
-                    <form id="loginForm" class="space-y-6">
-                        <div>
-                            <label for="loginEmail" class="block text-gray-300 mb-2 font-medium">E-mail</label>
-                            <input type="email" id="loginEmail" class="input-modern w-full px-4 py-3" required>
-                        </div>
-
-                        <div>
-                            <label for="loginPassword" class="block text-gray-300 mb-2 font-medium">Senha</label>
-                            <input type="password" id="loginPassword" class="input-modern w-full px-4 py-3" required>
-                        </div>
-
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <input type="checkbox" id="remember"
-                                    class="h-4 w-4 rounded bg-gray-800 border-gray-700 text-blue-500 focus:ring-blue-600">
-                                <label for="remember" class="ml-2 text-gray-400">Lembrar-me</label>
-                            </div>
-                            <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">Esqueci a senha</a>
-                        </div>
-
-                        <button type="submit" class="btn-modern w-full py-3.5 text-white font-bold">
-                            <i class="fas fa-sign-in-alt mr-2"></i> Acessar Portal
-                        </button>
-                    </form>
-
-                    <div class="mt-8 pt-6 border-t border-gray-800">
-                        <h4 class="text-white font-bold mb-4">Recursos do Portal:</h4>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="flex items-center text-gray-400">
-                                <i class="fas fa-file-contract text-blue-500 mr-2"></i>
-                                <span class="text-sm">Contratos</span>
-                            </div>
-                            <div class="flex items-center text-gray-400">
-                                <i class="fas fa-calendar-alt text-blue-500 mr-2"></i>
-                                <span class="text-sm">Agenda</span>
-                            </div>
-                            <div class="flex items-center text-gray-400">
-                                <i class="fas fa-file-upload text-blue-500 mr-2"></i>
-                                <span class="text-sm">Documentos</span>
-                            </div>
-                            <div class="flex items-center text-gray-400">
-                                <i class="fas fa-chart-bar text-blue-500 mr-2"></i>
-                                <span class="text-sm">Relatórios</span>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Success Modal -->
+    <div id="successModal"
+        class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-green-400 text-3xl"></i>
                 </div>
-
-                <div class="px-8 py-6 bg-gray-900/50 border-t border-gray-800">
-                    <p class="text-center text-gray-500 text-sm">
-                        Ainda não é cliente?
-                        <a href="#contato" class="text-blue-400 hover:text-blue-300 ml-1">Fale conosco</a>
-                    </p>
-                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Solicitação Enviada!</h3>
+                <p class="text-gray-400 mb-8">
+                    Recebemos sua solicitação. Nossa equipe entrará em contato em até 24 horas para dar continuidade ao
+                    seu atendimento.
+                </p>
+                <button id="closeSuccessModal" class="btn-primary px-8 py-3 rounded-lg font-bold">
+                    <i class="fas fa-thumbs-up mr-2"></i> Entendi
+                </button>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
     <script>
-        // Navbar scroll effect
+        // ====== MOBILE MENU FUNCTIONALITY ======
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const body = document.body;
+
+        // Funções para abrir/fechar menu mobile
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            body.classList.add('menu-open');
+            document.body.style.overflow = 'hidden';
+            document.addEventListener('keydown', handleEscapeKey);
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', handleEscapeKey);
+        }
+
+        function handleEscapeKey(e) {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
+        }
+
+        // Event Listeners para menu mobile
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', openMobileMenu);
+        }
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+        }
+
+        // Fechar menu ao clicar fora
+        if (mobileMenu) {
+            mobileMenu.addEventListener('click', function (e) {
+                if (e.target === mobileMenu) {
+                    closeMobileMenu();
+                }
+            });
+        }
+
+        // Fechar menu ao clicar em links
+        document.querySelectorAll('.mobile-menu-links a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                // Só fecha se não for link externo ou se for âncora
+                const href = this.getAttribute('href');
+                if (!href.includes('admin/') && href !== '#') {
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // ====== SMOOTH SCROLLING ======
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+
+                // Apenas links âncora internos
+                if (href === '#' || href.includes('admin/')) return;
+
+                e.preventDefault();
+
+                const targetElement = document.querySelector(href);
+                if (targetElement) {
+                    const offset = 80; // Altura do navbar
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Atualizar URL sem recarregar a página
+                    history.pushState(null, null, href);
+
+                    // Fechar menu mobile se estiver aberto
+                    if (mobileMenu && mobileMenu.classList.contains('active')) {
+                        closeMobileMenu();
+                    }
+                }
+            });
+        });
+
+        // ====== NAVBAR SCROLL EFFECT ======
         window.addEventListener('scroll', function () {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.remove('nav-transparent');
-                navbar.classList.add('nav-solid');
-            } else {
-                navbar.classList.add('nav-transparent');
-                navbar.classList.remove('nav-solid');
+            const nav = document.querySelector('nav');
+            if (nav) {
+                if (window.scrollY > 10) {
+                    nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+                } else {
+                    nav.style.boxShadow = 'none';
+                }
             }
         });
 
-        // Initialize navbar
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('navbar').classList.add('nav-transparent');
-
-            // Mobile menu toggle
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-
-            mobileMenuBtn.addEventListener('click', function () {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Login modal functionality
-            const loginBtns = [
-                document.getElementById('loginBtn'),
-                document.getElementById('mobileLoginBtn'),
-                document.getElementById('servicesLoginBtn'),
-                document.getElementById('footerLoginBtn')
-            ];
-
-            const loginModal = document.getElementById('loginModal');
-            const closeLogin = document.getElementById('closeLogin');
-
-            loginBtns.forEach(btn => {
-                if (btn) {
-                    btn.addEventListener('click', function () {
-                        loginModal.style.display = 'block';
-                        document.body.style.overflow = 'hidden';
-                        // Close mobile menu if open
-                        mobileMenu.classList.add('hidden');
-                    });
+        // ====== BACK TO TOP BUTTON ======
+        const backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 300) {
+                    backToTop.classList.remove('opacity-0');
+                    backToTop.classList.add('opacity-100');
+                } else {
+                    backToTop.classList.remove('opacity-100');
+                    backToTop.classList.add('opacity-0');
                 }
             });
 
-            closeLogin.addEventListener('click', function () {
-                loginModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            });
-
-            // Close modal when clicking outside
-            window.addEventListener('click', function (event) {
-                if (event.target === loginModal) {
-                    loginModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-
-                    e.preventDefault();
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        // Close mobile menu if open
-                        mobileMenu.classList.add('hidden');
-
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             });
+        }
 
-            // Add animation for blob elements
-            const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes blob {
-                    0% { transform: translate(0px, 0px) scale(1); }
-                    33% { transform: translate(30px, -50px) scale(1.1); }
-                    66% { transform: translate(-20px, 20px) scale(0.9); }
-                    100% { transform: translate(0px, 0px) scale(1); }
-                }
-                .animate-blob {
-                    animation: blob 7s infinite;
-                }
-                .animation-delay-2000 {
-                    animation-delay: 2s;
-                }
-            `;
-            document.head.appendChild(style);
+        // ====== FORMULÁRIO DE CONTATO/ORÇAMENTO ======
+        // Alternar entre PJ e PF
+        document.querySelectorAll('input[name="clientType"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                const pjFields = document.getElementById('pjFields');
+                const pfFields = document.getElementById('pfFields');
+                const companyName = document.getElementById('companyName');
+                const cnpj = document.getElementById('cnpj');
+                const cpf = document.getElementById('cpf');
 
-            // Alternar entre campos PJ/PF
-            const clientTypeRadios = document.querySelectorAll('input[name="clientType"]');
-            const pjFields = document.getElementById('pjFields');
-            const pfFields = document.getElementById('pfFields');
+                if (this.value === 'pj') {
+                    if (pjFields) pjFields.classList.remove('hidden');
+                    if (pfFields) pfFields.classList.add('hidden');
 
-            clientTypeRadios.forEach(radio => {
-                radio.addEventListener('change', function () {
-                    if (this.value === 'pj') {
-                        pjFields.classList.remove('hidden');
-                        pfFields.classList.add('hidden');
-                        // Tornar campos PJ obrigatórios
-                        document.getElementById('companyName').required = true;
-                        document.getElementById('cnpj').required = true;
-                        document.getElementById('cpf').required = false;
-                    } else {
-                        pjFields.classList.add('hidden');
-                        pfFields.classList.remove('hidden');
-                        // Tornar campos PF obrigatórios
-                        document.getElementById('companyName').required = false;
-                        document.getElementById('cnpj').required = false;
-                        document.getElementById('cpf').required = true;
+                    if (companyName) companyName.required = true;
+                    if (cnpj) cnpj.required = true;
+                    if (cpf) cpf.required = false;
+                } else {
+                    if (pjFields) pjFields.classList.add('hidden');
+                    if (pfFields) pfFields.classList.remove('hidden');
+
+                    if (companyName) companyName.required = false;
+                    if (cnpj) cnpj.required = false;
+                    if (cpf) cpf.required = true;
+                }
+            });
+        });
+
+        // Máscaras para CPF/CNPJ e Telefone
+        function applyMasks() {
+            // Máscara para CNPJ
+            const cnpjInput = document.getElementById('cnpj');
+            if (cnpjInput) {
+                cnpjInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+
+                    if (value.length <= 14) {
+                        if (value.length > 12) {
+                            value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+                        } else if (value.length > 8) {
+                            value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
+                        } else if (value.length > 5) {
+                            value = value.replace(/^(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                        } else if (value.length > 2) {
+                            value = value.replace(/^(\d{2})(\d{0,3})/, '$1.$2');
+                        }
+                        e.target.value = value;
                     }
                 });
-            });
+            }
 
-            // Formulário de orçamento
-            document.getElementById('budgetForm').addEventListener('submit', function (e) {
+            // Máscara para CPF
+            const cpfInput = document.getElementById('cpf');
+            if (cpfInput) {
+                cpfInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+
+                    if (value.length <= 11) {
+                        if (value.length > 9) {
+                            value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                        } else if (value.length > 6) {
+                            value = value.replace(/^(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                        } else if (value.length > 3) {
+                            value = value.replace(/^(\d{3})(\d{0,3})/, '$1.$2');
+                        }
+                        e.target.value = value;
+                    }
+                });
+            }
+
+            // Máscara para Telefone
+            const phoneInput = document.getElementById('budgetPhone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+
+                    if (value.length > 10) {
+                        value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                    } else if (value.length > 6) {
+                        value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                    } else if (value.length > 2) {
+                        value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+                    } else if (value.length > 0) {
+                        value = value.replace(/^(\d{0,2})/, '($1');
+                    }
+                    e.target.value = value;
+                });
+            }
+        }
+
+        // Envio do formulário de orçamento
+        const budgetForm = document.getElementById('budgetForm');
+        if (budgetForm) {
+            budgetForm.addEventListener('submit', function (e) {
                 e.preventDefault();
+
+                // Validação básica
+                const requiredFields = this.querySelectorAll('[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.classList.add('error-border');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('error-border');
+                    }
+                });
+
+                if (!isValid) {
+                    // Exibir mensagem de erro
+                    showNotification('Por favor, preencha todos os campos obrigatórios.', 'error');
+                    return;
+                }
 
                 // Coletar dados do formulário
                 const formData = {
-                    nome: document.getElementById('budgetName').value,
-                    email: document.getElementById('budgetEmail').value,
-                    telefone: document.getElementById('budgetPhone').value,
-                    tipoCliente: document.querySelector('input[name="clientType"]:checked').value,
-                    // Dados específicos do tipo de cliente
-                    dadosEspecificos: {},
-                    servicos: [],
-                    mensagem: document.getElementById('budgetMessage').value
+                    nome: document.getElementById('budgetName')?.value || '',
+                    email: document.getElementById('budgetEmail')?.value || '',
+                    telefone: document.getElementById('budgetPhone')?.value || '',
+                    tipoCliente: document.querySelector('input[name="clientType"]:checked')?.value || 'pj',
+                    servicos: Array.from(document.querySelectorAll('input[name="services"]:checked'))
+                        .map(cb => cb.value),
+                    mensagem: document.getElementById('budgetMessage')?.value || ''
                 };
 
-                // Coletar serviços selecionados
-                const servicosSelecionados = document.querySelectorAll('input[name="services"]:checked');
-                servicosSelecionados.forEach(servico => {
-                    formData.servicos.push(servico.value);
-                });
-
-                // Coletar dados específicos baseados no tipo de cliente
+                // Adicionar dados específicos do tipo de cliente
                 if (formData.tipoCliente === 'pj') {
-                    formData.dadosEspecificos = {
-                        razaoSocial: document.getElementById('companyName').value,
-                        cnpj: document.getElementById('cnpj').value,
-                        funcionarios: document.getElementById('employees').value,
-                        faturamento: document.getElementById('monthlyRevenue').value
-                    };
+                    formData.razaoSocial = document.getElementById('companyName')?.value || '';
+                    formData.cnpj = document.getElementById('cnpj')?.value || '';
+                    formData.funcionarios = document.getElementById('employees')?.value || '';
+                    formData.faturamento = document.getElementById('monthlyRevenue')?.value || '';
                 } else {
-                    formData.dadosEspecificos = {
-                        cpf: document.getElementById('cpf').value,
-                        profissao: document.getElementById('profession').value
+                    formData.cpf = document.getElementById('cpf')?.value || '';
+                    formData.profissao = document.getElementById('profession')?.value || '';
+                }
+
+                // Simular envio
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+
+                // Simular delay de envio
+                setTimeout(() => {
+                    // Exibir modal de sucesso
+                    const protocolo = 'G2I-' + Date.now().toString().slice(-8);
+
+                    const successModal = document.createElement('div');
+                    successModal.className = 'modal-overlay';
+                    successModal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-check text-green-400 text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Orçamento Solicitado!</h3>
+                            <p class="text-gray-400 mb-6">
+                                Recebemos sua solicitação de orçamento. Nossa equipe entrará em contato em até 24 horas úteis.
+                            </p>
+                            <div class="bg-gray-800/50 rounded-lg p-4 mb-6 text-left">
+                                <p class="text-gray-300 mb-2"><strong>Protocolo:</strong> ${protocolo}</p>
+                                <p class="text-gray-300"><strong>Previsão:</strong> 24 horas úteis</p>
+                            </div>
+                            <button onclick="this.closest('.modal-overlay').remove()" 
+                                    class="btn-primary px-8 py-3 rounded-lg font-bold">
+                                <i class="fas fa-thumbs-up mr-2"></i> Entendi
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                    document.body.appendChild(successModal);
+
+                    // Resetar formulário
+                    this.reset();
+                    if (document.getElementById('pjFields')) {
+                        document.getElementById('pjFields').classList.remove('hidden');
+                    }
+                    if (document.getElementById('pfFields')) {
+                        document.getElementById('pfFields').classList.add('hidden');
+                    }
+
+                    // Restaurar botão
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+
+                    // Fechar modal ao clicar fora
+                    successModal.addEventListener('click', function (e) {
+                        if (e.target === this) {
+                            this.remove();
+                        }
+                    });
+
+                    // Fechar com ESC
+                    const closeModalOnEsc = function (e) {
+                        if (e.key === 'Escape') {
+                            successModal.remove();
+                            document.removeEventListener('keydown', closeModalOnEsc);
+                        }
                     };
-                }
+                    document.addEventListener('keydown', closeModalOnEsc);
 
-                // Em produção, aqui enviaria para o backend PHP
-                console.log('Dados do orçamento:', formData);
-
-                // Simulação de envio
-                alert('Orçamento solicitado com sucesso! Entraremos em contato em até 24 horas úteis.');
-                this.reset();
-
-                // Resetar campos dinâmicos
-                pjFields.classList.remove('hidden');
-                pfFields.classList.add('hidden');
+                }, 1500);
             });
+        }
 
-            // Máscaras para CNPJ e CPF
-            function applyMasks() {
-                const cnpjInput = document.getElementById('cnpj');
-                const cpfInput = document.getElementById('cpf');
+        // ====== FORMULÁRIO DE CONTATO SIMPLES ======
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
 
-                if (cnpjInput) {
-                    cnpjInput.addEventListener('input', function (e) {
-                        let value = e.target.value.replace(/\D/g, '');
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
 
-                        if (value.length > 14) value = value.substring(0, 14);
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
 
-                        if (value.length <= 2) {
-                            e.target.value = value;
-                        } else if (value.length <= 5) {
-                            e.target.value = value.replace(/^(\d{2})(\d+)/, '$1.$2');
-                        } else if (value.length <= 8) {
-                            e.target.value = value.replace(/^(\d{2})(\d{3})(\d+)/, '$1.$2.$3');
-                        } else if (value.length <= 12) {
-                            e.target.value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d+)/, '$1.$2.$3/$4');
-                        } else {
-                            e.target.value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d+)/, '$1.$2.$3/$4-$5');
+                setTimeout(() => {
+                    // Exibir modal de sucesso
+                    const successModal = document.createElement('div');
+                    successModal.className = 'modal-overlay';
+                    successModal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="p-8 text-center">
+                            <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-check text-green-400 text-3xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Mensagem Enviada!</h3>
+                            <p class="text-gray-400 mb-6">
+                                Recebemos sua mensagem. Nossa equipe entrará em contato em breve.
+                            </p>
+                            <button onclick="this.closest('.modal-overlay').remove()" 
+                                    class="btn-primary px-8 py-3 rounded-lg font-bold">
+                                <i class="fas fa-thumbs-up mr-2"></i> Entendi
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                    document.body.appendChild(successModal);
+
+                    // Resetar formulário
+                    this.reset();
+
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+
+                    // Fechar modal ao clicar fora
+                    successModal.addEventListener('click', function (e) {
+                        if (e.target === this) {
+                            this.remove();
                         }
                     });
+                }, 1500);
+            });
+        }
+
+        // ====== ANIMAÇÕES ON SCROLL ======
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
                 }
+            });
+        }, observerOptions);
 
-                if (cpfInput) {
-                    cpfInput.addEventListener('input', function (e) {
-                        let value = e.target.value.replace(/\D/g, '');
+        // Observar elementos para animar
+        document.querySelectorAll('.service-icon, .stat-card, .testimonial-card, .feature-card').forEach(el => {
+            observer.observe(el);
+        });
 
-                        if (value.length > 11) value = value.substring(0, 11);
+        // ====== FUNÇÕES UTILITÁRIAS ======
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg backdrop-blur-sm border ${type === 'error'
+                    ? 'bg-red-900/90 border-red-700/50 text-red-100'
+                    : 'bg-green-900/90 border-green-700/50 text-green-100'
+                }`;
+            notification.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'} mr-3"></i>
+                <span>${message}</span>
+            </div>
+        `;
 
-                        if (value.length <= 3) {
-                            e.target.value = value;
-                        } else if (value.length <= 6) {
-                            e.target.value = value.replace(/^(\d{3})(\d+)/, '$1.$2');
-                        } else if (value.length <= 9) {
-                            e.target.value = value.replace(/^(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
-                        } else {
-                            e.target.value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
-                        }
-                    });
-                }
-            }
+            document.body.appendChild(notification);
 
-            // Inicializar máscaras quando o DOM estiver carregado
+            // Remover após 5 segundos
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        // ====== INICIALIZAÇÃO ======
+        document.addEventListener('DOMContentLoaded', function () {
+            // Aplicar máscaras
             applyMasks();
 
-            // Remover referência ao formulário antigo (que não existe mais)
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.removeEventListener('submit', null);
+            // Verificar se há hash na URL e scrollar para ele
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.querySelector(window.location.hash);
+                    if (target) {
+                        const offset = 80;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 100);
             }
 
-            // Login form handler
-            document.getElementById('loginForm').addEventListener('submit', function (e) {
-                e.preventDefault();
-                alert('Sistema de login será implementado no backend PHP.');
-                // In production, this would submit to a PHP backend
+            // Fechar menu mobile ao redimensionar para desktop
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768 && mobileMenu && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Atualizar link ativo baseado na posição de scroll
+            window.addEventListener('scroll', function () {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPos = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        // Remover classe active de todos os links
+                        document.querySelectorAll('.nav-link, .mobile-menu-links a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+
+                        // Adicionar classe active ao link correspondente
+                        const correspondingLink = document.querySelector(`a[href="#${sectionId}"]`);
+                        if (correspondingLink) {
+                            correspondingLink.classList.add('active');
+                        }
+                    }
+                });
             });
         });
+
+        // ====== FUNÇÕES GLOBAIS ======
+        window.openMobileMenu = openMobileMenu;
+        window.closeMobileMenu = closeMobileMenu;
     </script>
 </body>
-</html>
 
+</html>

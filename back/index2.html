@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G2I Contabilidade | Soluções Contábeis Completa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --electric-blue: #7600FF;
+            --light-purple: #9d4dff;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: #ffffff;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7600FF, #9d4dff);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
+        }
+
+        .card-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #9d4dff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #7600FF;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(118, 0, 255, 0.1), rgba(157, 77, 255, 0.05));
+            border: 1px solid rgba(118, 0, 255, 0.2);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(118, 0, 255, 0.2), rgba(157, 77, 255, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: #7600FF;
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .footer-gradient {
+            background: linear-gradient(135deg, #0a0a0a 0%, #0f0820 100%);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-sm border-b border-gray-900">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30"></div>
+                        <div class="relative bg-black p-2 rounded-lg">
+                            <i class="fas fa-calculator text-purple-400 text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">G2I<span class="text-purple-400">.</span></h2>
+                        <p class="text-xs text-gray-400">Contabilidade Inteligente</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-300 hover:text-white">Início</a>
+                    <a href="#servicos" class="nav-link text-gray-300 hover:text-white">Serviços</a>
+                    <a href="#sobre" class="nav-link text-gray-300 hover:text-white">Sobre Nós</a>
+                    <a href="#contato" class="nav-link text-gray-300 hover:text-white">Contato</a>
+                    <a href="admin/login.html" class="px-6 py-2 rounded-lg border border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white transition">
+                        Área do Cliente
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-4">
+                <a href="#home" class="block text-gray-300 hover:text-white py-2">Início</a>
+                <a href="#servicos" class="block text-gray-300 hover:text-white py-2">Serviços</a>
+                <a href="#sobre" class="block text-gray-300 hover:text-white py-2">Sobre Nós</a>
+                <a href="#contato" class="block text-gray-300 hover:text-white py-2">Contato</a>
+                <a href="admin/login.html" class="block px-6 py-2 rounded-lg border border-purple-600 text-purple-400 hover:bg-purple-600 hover:text-white transition text-center">
+                    Área do Cliente
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient pt-32 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center space-x-2 bg-purple-900/30 text-purple-300 px-4 py-2 rounded-full mb-6">
+                        <span class="w-2 h-2 bg-purple-400 rounded-full"></span>
+                        <span class="text-sm">Contabilidade 4.0</span>
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Sua contabilidade
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-600">simplificada</span>
+                        e eficiente
+                    </h1>
+                    
+                    <p class="text-xl text-gray-300 mb-8">
+                        Soluções contábeis completas para sua empresa crescer com segurança e tranquilidade.
+                        Automatizamos processos para você focar no que realmente importa.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#contato" class="btn-primary px-8 py-4 rounded-lg font-bold text-center">
+                            <i class="fas fa-calendar-check mr-2"></i> Agendar Consultoria
+                        </a>
+                        <a href="#servicos" class="px-8 py-4 rounded-lg border border-gray-700 hover:border-purple-600 text-center hover:text-purple-400 transition">
+                            <i class="fas fa-play-circle mr-2"></i> Ver Serviços
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="relative z-10 animate-float">
+                        <div class="card-glass p-8 rounded-2xl">
+                            <div class="text-center mb-8">
+                                <div class="service-icon mx-auto">
+                                    <i class="fas fa-chart-line text-purple-400 text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold mb-2">Dashboard Inteligente</h3>
+                                <p class="text-gray-400">Acompanhe suas métricas em tempo real</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Lucro Mensal</span>
+                                    <span class="text-green-400 font-bold">+24%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Impostos Otimizados</span>
+                                    <span class="text-purple-400 font-bold">-18%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-400">Satisfação</span>
+                                    <span class="text-yellow-400 font-bold">98%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-purple-600/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-400/20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-gray-900/50">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">500+</div>
+                    <div class="text-gray-400">Clientes Ativos</div>
+                </div>
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">R$ 15M+</div>
+                    <div class="text-gray-400">Impostos Otimizados</div>
+                </div>
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">24/7</div>
+                    <div class="text-gray-400">Suporte Especializado</div>
+                </div>
+                <div class="stat-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-white mb-2">98%</div>
+                    <div class="text-gray-400">Satisfação do Cliente</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicos" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Nossos <span class="text-purple-400">Serviços</span></h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Oferecemos soluções contábeis completas para empresas de todos os tamanhos e segmentos.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-balance-scale text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Contabilidade Completa</h3>
+                    <p class="text-gray-400 mb-6">
+                        Gestão completa da sua contabilidade com relatórios detalhados e acompanhamento personalizado.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Escrituração Contábil</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Demonstrativos Financeiros</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Análise de Balanço</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice-dollar text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Departamento Fiscal</h3>
+                    <p class="text-gray-400 mb-6">
+                        Gestão fiscal completa com planejamento tributário e otimização de impostos.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Apuração de Impostos</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Planejamento Tributário</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Obrigações Acessórias</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-users text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Folha de Pagamento</h3>
+                    <p class="text-gray-400 mb-6">
+                        Gestão completa da folha de pagamento com cálculos precisos e conformidade legal.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Cálculo de Holerites</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>GPS e Relatórios</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Conformidade Trabalhista</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Abertura de Empresa</h3>
+                    <p class="text-gray-400 mb-6">
+                        Processo completo de abertura de empresa com consultoria especializada.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Consultoria Jurídica</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Registro Junta Comercial</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Alvarás e Licenças</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Consultoria Financeira</h3>
+                    <p class="text-gray-400 mb-6">
+                        Análise e planejamento financeiro estratégico para o crescimento do seu negócio.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Análise de Rentabilidade</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Planejamento Orçamentário</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Projeções Financeiras</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="card-glass p-8 rounded-2xl hover-lift">
+                    <div class="service-icon">
+                        <i class="fas fa-lock text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Regularização Fiscal</h3>
+                    <p class="text-gray-400 mb-6">
+                        Regularização de pendências fiscais e trabalhistas com segurança e discrição.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Recuperação de Créditos</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Negociação com Órgãos</span>
+                        </li>
+                        <li class="flex items-center text-gray-300">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span>Parcelamentos e Acordos</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre" class="py-20 bg-gray-900/30">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Sobre a <span class="text-purple-400">G2I Contabilidade</span></h2>
+                    <p class="text-gray-400 mb-6 text-lg">
+                        Somos uma empresa de contabilidade moderna e inovadora, focada em transformar números em insights valiosos para o crescimento do seu negócio.
+                    </p>
+                    <p class="text-gray-400 mb-8">
+                        Com mais de 10 anos de experiência no mercado, combinamos expertise contábil com tecnologia de ponta para oferecer soluções completas e personalizadas para cada cliente.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-star text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Excelência Comprovada</h4>
+                                <p class="text-gray-400">Certificados e premiações no setor contábil</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-shield-alt text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Segurança de Dados</h4>
+                                <p class="text-gray-400">Sistemas protegidos e backups automáticos</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 rounded-full bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-headset text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Suporte Dedicado</h4>
+                                <p class="text-gray-400">Contador responsável para cada cliente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="card-glass p-8 rounded-2xl">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold mb-4">Por que escolher a G2I?</h3>
+                            <p class="text-gray-400">Diferenciais que nos destacam no mercado</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">01</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Tecnologia Avançada</h4>
+                                    <p class="text-gray-400 text-sm">Sistema próprio com dashboard em tempo real</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">02</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Transparência Total</h4>
+                                    <p class="text-gray-400 text-sm">Acesso completo a todos os processos e documentos</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">03</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Custo-Benefício</h4>
+                                    <p class="text-gray-400 text-sm">Planos flexíveis que se adaptam ao seu negócio</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <span class="text-purple-400 font-bold">04</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Resultados Comprovados</h4>
+                                    <p class="text-gray-400 text-sm">Clientes com crescimento médio de 30% ao ano</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">O que nossos <span class="text-purple-400">clientes dizem</span></h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Confira a experiência de quem já transformou sua contabilidade com a G2I.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold text-xl">MF</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Marcos Fernandes</h4>
+                            <p class="text-gray-400 text-sm">CEO TechSolutions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">
+                        "A G2I revolucionou nossa gestão financeira. O dashboard em tempo real nos permite tomar decisões estratégicas com muito mais segurança."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold text-xl">AP</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Ana Paula Silva</h4>
+                            <p class="text-gray-400 text-sm">Diretora VivaBem Saúde</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">
+                        "Excelente atendimento e profissionalismo. A equipe da G2I nos ajudou a reduzir 25% dos custos tributários no primeiro ano."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl">
+                    <div class="flex items-center mb-6">
+                        <div class="w-14 h-14 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-4">
+                            <span class="text-white font-bold text-xl">RC</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Ricardo Costa</h4>
+                            <p class="text-gray-400 text-sm">Sócio ConstruMax</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">
+                        "Sistema muito intuitivo e equipe sempre disponível. Finalmente encontrei uma contabilidade que fala a mesma língua que o empresário."
+                    </p>
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contato" class="py-20 bg-gray-900/30">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">Entre em <span class="text-purple-400">Contato</span></h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        Pronto para transformar sua contabilidade? Entre em contato e descubra como podemos ajudar seu negócio a crescer.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Endereço</h4>
+                                <p class="text-gray-400">Av. Paulista, 1000 - Bela Vista</p>
+                                <p class="text-gray-400">São Paulo - SP, 01310-100</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">Telefone</h4>
+                                <p class="text-gray-400">(11) 99999-9999</p>
+                                <p class="text-gray-400">Segunda a Sexta, 9h às 18h</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">E-mail</h4>
+                                <p class="text-gray-400">contato@g2icontabilidade.com.br</p>
+                                <p class="text-gray-400">Respondemos em até 24h</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                <i class="fab fa-whatsapp text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white mb-1">WhatsApp</h4>
+                                <p class="text-gray-400">(11) 98888-8888</p>
+                                <p class="text-gray-400">Atendimento rápido via mensagem</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Solicite uma Proposta</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-300 mb-2">Nome Completo</label>
+                                <input type="text" class="form-input w-full px-4 py-3" placeholder="Seu nome" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 mb-2">Empresa</label>
+                                <input type="text" class="form-input w-full px-4 py-3" placeholder="Nome da empresa">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-300 mb-2">E-mail</label>
+                                <input type="email" class="form-input w-full px-4 py-3" placeholder="seu@email.com" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 mb-2">Telefone</label>
+                                <input type="tel" class="form-input w-full px-4 py-3" placeholder="(11) 99999-9999" required>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-300 mb-2">Serviço de Interesse</label>
+                            <select class="form-input w-full px-4 py-3" required>
+                                <option value="">Selecione um serviço</option>
+                                <option>Contabilidade Completa</option>
+                                <option>Departamento Fiscal</option>
+                                <option>Folha de Pagamento</option>
+                                <option>Abertura de Empresa</option>
+                                <option>Consultoria Financeira</option>
+                                <option>Regularização Fiscal</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-300 mb-2">Mensagem</label>
+                            <textarea class="form-input w-full px-4 py-3 h-32" placeholder="Descreva suas necessidades..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full py-4 rounded-lg font-bold">
+                            <i class="fas fa-paper-plane mr-2"></i> Enviar Solicitação
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-gradient py-12 border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="relative">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30"></div>
+                            <div class="relative bg-black p-2 rounded-lg">
+                                <i class="fas fa-calculator text-purple-400 text-xl"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold">G2I<span class="text-purple-400">.</span></h2>
+                            <p class="text-xs text-gray-400">Contabilidade Inteligente</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Soluções contábeis completas e inovadoras para o crescimento do seu negócio.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6">Serviços</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Contabilidade Completa</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Departamento Fiscal</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Folha de Pagamento</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Abertura de Empresa</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Consultoria Financeira</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-purple-400 transition">Início</a></li>
+                        <li><a href="#sobre" class="text-gray-400 hover:text-purple-400 transition">Sobre Nós</a></li>
+                        <li><a href="#servicos" class="text-gray-400 hover:text-purple-400 transition">Serviços</a></li>
+                        <li><a href="#contato" class="text-gray-400 hover:text-purple-400 transition">Contato</a></li>
+                        <li><a href="admin/login.html" class="text-gray-400 hover:text-purple-400 transition">Área do Cliente</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-6">Informações</h3>
+                    <ul class="space-y-3">
+                        <li class="text-gray-400">
+                            <i class="fas fa-file-contract mr-2 text-purple-400"></i>
+                            CNPJ: 42.623.639/0001-73
+                        </li>
+                        <li class="text-gray-400">
+                            <i class="fas fa-calendar-alt mr-2 text-purple-400"></i>
+                            Seg - Sex: 9h às 18h
+                        </li>
+                        <li class="text-gray-400">
+                            <i class="fas fa-phone mr-2 text-purple-400"></i>
+                            (11) 99999-9999
+                        </li>
+                        <li class="text-gray-400">
+                            <i class="fas fa-envelope mr-2 text-purple-400"></i>
+                            contato@g2icontabilidade.com.br
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500">
+                    &copy; 2024 G2I Contabilidade LTDA. Todos os direitos reservados.
+                </p>
+                <p class="text-gray-600 text-sm mt-2">
+                    Desenvolvido com <i class="fas fa-heart text-purple-400"></i> para transformar sua contabilidade
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition opacity-0 z-40">
+        <i class="fas fa-arrow-up text-white"></i>
+    </button>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-green-400 text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-4">Solicitação Enviada!</h3>
+                <p class="text-gray-400 mb-8">
+                    Recebemos sua solicitação. Nossa equipe entrará em contato em até 24 horas para dar continuidade ao seu atendimento.
+                </p>
+                <button id="closeSuccessModal" class="btn-primary px-8 py-3 rounded-lg font-bold">
+                    <i class="fas fa-thumbs-up mr-2"></i> Entendi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.remove('opacity-0');
+                backToTop.classList.add('opacity-100');
+            } else {
+                backToTop.classList.remove('opacity-100');
+                backToTop.classList.add('opacity-0');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+            
+            setTimeout(() => {
+                // Show success modal
+                successModal.classList.remove('hidden');
+                
+                // Reset form
+                contactForm.reset();
+                
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }, 1500);
+        });
+
+        closeSuccessModal.addEventListener('click', function() {
+            successModal.classList.add('hidden');
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === successModal) {
+                successModal.classList.add('hidden');
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements to animate
+        document.querySelectorAll('.service-icon, .stat-card, .testimonial-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

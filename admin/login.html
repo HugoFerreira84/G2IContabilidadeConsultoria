@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | G2I Contabilidade</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-blue: #0f172a;
+            --electric-blue: #7600FF;
+            --light-blue: #7600FF;
+            --light-gray: #f8fafc;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-black);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .login-glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .login-left {
+            background: linear-gradient(135deg, rgba(118, 0, 255, 0.1), rgba(15, 23, 42, 0.9));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-left::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(118, 0, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .input-modern {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .input-modern:focus {
+            border-color: #7600FF;
+            box-shadow: 0 0 0 3px rgba(118, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .btn-modern {
+            background: linear-gradient(135deg, #7600FF, #9d4dff);
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(118, 0, 255, 0.3);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #374151;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #7600FF;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(118, 0, 255, 0.3);
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(118, 0, 255, 0.1);
+            border-radius: 50%;
+            animation: float-particle 15s linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .error-shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div id="particles"></div>
+
+    <div class="login-container">
+        <div class="login-glass grid grid-cols-1 lg:grid-cols-2">
+            <!-- Left Side - Features -->
+            <div class="login-left p-8 lg:p-12 hidden lg:block">
+                <div class="relative z-10">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-3 mb-12">
+                        <div class="relative">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30"></div>
+                            <div class="relative bg-black p-2 rounded-lg">
+                                <i class="fas fa-calculator text-purple-400 text-xl"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">G2I<span class="text-purple-400">.</span></h2>
+                            <p class="text-sm text-gray-400">Contabilidade Inteligente</p>
+                        </div>
+                    </div>
+
+                    <!-- Welcome Text -->
+                    <div class="mb-12">
+                        <h1 class="text-4xl font-bold text-white mb-4">
+                            Bem-vindo ao <span class="text-purple-400">Sistema Administrativo</span>
+                        </h1>
+                        <p class="text-gray-300 text-lg">
+                            Gerencie sua contabilidade com eficiência e precisão através do nosso sistema completo.
+                        </p>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="space-y-6">
+                        <div class="feature-card p-6 animate-float" style="animation-delay: 0s;">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-chart-line text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-2">Dashboard Inteligente</h4>
+                                    <p class="text-gray-300">Acompanhe métricas em tempo real com gráficos interativos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-card p-6 animate-float" style="animation-delay: 1s;">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-users-cog text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-2">Gestão de Clientes</h4>
+                                    <p class="text-gray-300">Gerencie todos os clientes e documentos em um só lugar.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feature-card p-6 animate-float" style="animation-delay: 2s;">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 rounded-xl bg-purple-900/30 flex items-center justify-center mr-4">
+                                    <i class="fas fa-file-invoice-dollar text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-2">Orçamentos Automáticos</h4>
+                                    <p class="text-gray-300">Crie e envie orçamentos de forma automatizada.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="mt-12 grid grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-white mb-1">500+</div>
+                            <div class="text-sm text-gray-400">Clientes</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-white mb-1">24/7</div>
+                            <div class="text-sm text-gray-400">Suporte</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-white mb-1">99.9%</div>
+                            <div class="text-sm text-gray-400">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="p-8 lg:p-12">
+                <!-- Mobile Logo -->
+                <div class="flex items-center justify-center mb-8 lg:hidden">
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-purple-400 rounded-lg blur opacity-30"></div>
+                            <div class="relative bg-black p-2 rounded-lg">
+                                <i class="fas fa-calculator text-purple-400 text-xl"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">G2I<span class="text-purple-400">.</span></h2>
+                            <p class="text-sm text-gray-400">Admin System</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-md mx-auto">
+                    <!-- Form Header -->
+                    <div class="text-center mb-10">
+                        <h1 class="text-3xl font-bold text-white mb-3">Acessar Sistema</h1>
+                        <p class="text-gray-400">Entre com suas credenciais para acessar o painel</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm" class="space-y-6">
+                        <!-- Email Field -->
+                        <div>
+                            <label for="email" class="block text-gray-300 mb-2">
+                                <i class="fas fa-envelope mr-2"></i>E-mail
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="input-modern w-full px-4 py-3 pl-12"
+                                    placeholder="seu@email.com"
+                                    required
+                                >
+                                <div class="absolute left-4 top-3.5 text-gray-400">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div>
+                            <label for="password" class="block text-gray-300 mb-2">
+                                <i class="fas fa-lock mr-2"></i>Senha
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    class="input-modern w-full px-4 py-3 pl-12 pr-12"
+                                    placeholder="••••••••"
+                                    required
+                                >
+                                <div class="absolute left-4 top-3.5 text-gray-400">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <button 
+                                    type="button" 
+                                    id="togglePassword" 
+                                    class="absolute right-4 top-3.5 text-gray-400 hover:text-white"
+                                >
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <label class="toggle-switch mr-3">
+                                    <input type="checkbox" id="remember">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="text-gray-300 text-sm">Lembrar-me</span>
+                            </div>
+                            <a href="#" id="forgotPassword" class="text-purple-400 hover:text-purple-300 text-sm">
+                                Esqueceu a senha?
+                            </a>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div id="errorMessage" class="hidden p-4 rounded-lg bg-red-900/30 border border-red-700/50">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-circle text-red-400 mr-3"></i>
+                                <span id="errorText" class="text-red-300">Credenciais inválidas. Tente novamente.</span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-modern w-full py-3.5">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Entrar no Sistema
+                        </button>
+
+                        <!-- Demo Access -->
+                        <div class="text-center mt-6">
+                            <p class="text-gray-400 mb-4">Ou acesse como:</p>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button type="button" id="demoAdmin" class="py-3 rounded-lg bg-purple-900/30 hover:bg-purple-900/50 text-purple-300 border border-purple-800/50">
+                                    <i class="fas fa-user-shield mr-2"></i>Admin
+                                </button>
+                                <button type="button" id="demoUser" class="py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700">
+                                    <i class="fas fa-user mr-2"></i>Usuário
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Additional Links -->
+                    <div class="mt-10 text-center">
+                        <div class="border-t border-gray-800 pt-6">
+                            <p class="text-gray-500 text-sm">
+                                Precisa de ajuda? 
+                                <a href="mailto:suporte@g2icontabilidade.com.br" class="text-purple-400 hover:text-purple-300">
+                                    suporte@g2icontabilidade.com.br
+                                </a>
+                            </p>
+                            <p class="text-gray-600 text-sm mt-2">
+                                <a href="../index.html" class="hover:text-purple-400">
+                                    <i class="fas fa-arrow-left mr-1"></i> Voltar ao Site Público
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Copyright -->
+                    <div class="mt-8 text-center">
+                        <p class="text-gray-600 text-sm">
+                            &copy; 2024 G2I Contabilidade LTDA. CNPJ: 42.623.639/0001-73
+                        </p>
+                        <p class="text-gray-600 text-xs mt-1">
+                            v2.4.1 | Sistema Administrativo
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-white">Recuperar Senha</h3>
+                        <button class="text-gray-400 hover:text-white close-modal">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <p class="text-gray-400">
+                            Digite seu e-mail abaixo e enviaremos um link para redefinir sua senha.
+                        </p>
+                        
+                        <div>
+                            <label class="block text-gray-300 mb-2">E-mail Cadastrado</label>
+                            <input type="email" id="recoveryEmail" class="input-modern w-full px-4 py-3" placeholder="seu@email.com">
+                        </div>
+                        
+                        <div id="recoverySuccess" class="hidden p-4 rounded-lg bg-green-900/30 border border-green-700/50">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                <span class="text-green-300">Link de recuperação enviado!</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-3 pt-4">
+                            <button class="px-6 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg close-modal">
+                                Cancelar
+                            </button>
+                            <button id="sendRecovery" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg">
+                                <i class="fas fa-paper-plane mr-2"></i> Enviar Link
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="text-center">
+                <div class="relative inline-block mb-6">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-purple-600 to-purple-400 rounded-full blur opacity-30 animate-pulse"></div>
+                    <div class="relative">
+                        <div class="w-20 h-20 rounded-full bg-black flex items-center justify-center">
+                            <i class="fas fa-calculator text-purple-400 text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Autenticando...</h3>
+                <p class="text-gray-400">Acessando o sistema administrativo</p>
+                <div class="mt-6">
+                    <div class="w-48 h-1 bg-gray-800 rounded-full overflow-hidden mx-auto">
+                        <div class="h-full bg-gradient-to-r from-purple-600 to-purple-400 animate-loading"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size and position
+                const size = Math.random() * 60 + 20;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // Demo credentials
+        const demoCredentials = {
+            admin: {
+                email: 'admin@g2i.com',
+                password: 'admin123',
+                name: 'Administrador',
+                role: 'admin'
+            },
+            user: {
+                email: 'usuario@g2i.com',
+                password: 'user123',
+                name: 'Usuário Demo',
+                role: 'user'
+            }
+        };
+
+        // Demo login buttons
+        document.getElementById('demoAdmin').addEventListener('click', function() {
+            document.getElementById('email').value = demoCredentials.admin.email;
+            document.getElementById('password').value = demoCredentials.admin.password;
+            document.getElementById('remember').checked = true;
+        });
+
+        document.getElementById('demoUser').addEventListener('click', function() {
+            document.getElementById('email').value = demoCredentials.user.email;
+            document.getElementById('password').value = demoCredentials.user.password;
+            document.getElementById('remember').checked = true;
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            
+            // Hide error message
+            document.getElementById('errorMessage').classList.add('hidden');
+            
+            // Show loading
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            
+            // Simulate authentication delay
+            setTimeout(() => {
+                // Check demo credentials
+                let authenticated = false;
+                let userData = null;
+                
+                for (const role in demoCredentials) {
+                    if (email === demoCredentials[role].email && 
+                        password === demoCredentials[role].password) {
+                        authenticated = true;
+                        userData = demoCredentials[role];
+                        break;
+                    }
+                }
+                
+                if (authenticated) {
+                    // Store user data
+                    if (remember) {
+                        localStorage.setItem('g2i_demo_email', email);
+                        localStorage.setItem('g2i_demo_remember', 'true');
+                    } else {
+                        localStorage.removeItem('g2i_demo_email');
+                        localStorage.removeItem('g2i_demo_remember');
+                    }
+                    
+                    // Store session data
+                    sessionStorage.setItem('g2i_user_name', userData.name);
+                    sessionStorage.setItem('g2i_user_role', userData.role);
+                    sessionStorage.setItem('g2i_user_email', userData.email);
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Show error
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                    document.getElementById('errorMessage').classList.remove('hidden');
+                    document.getElementById('loginForm').classList.add('error-shake');
+                    
+                    setTimeout(() => {
+                        document.getElementById('loginForm').classList.remove('error-shake');
+                    }, 500);
+                }
+            }, 1500);
+        });
+
+        // Forgot password modal
+        const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+        const forgotPasswordBtn = document.getElementById('forgotPassword');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const sendRecoveryBtn = document.getElementById('sendRecovery');
+
+        forgotPasswordBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            forgotPasswordModal.classList.remove('hidden');
+        });
+
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                forgotPasswordModal.classList.add('hidden');
+                document.getElementById('recoverySuccess').classList.add('hidden');
+            });
+        });
+
+        // Send recovery email
+        sendRecoveryBtn.addEventListener('click', function() {
+            const email = document.getElementById('recoveryEmail').value;
+            
+            if (email && email.includes('@')) {
+                // Simulate sending email
+                const btn = this;
+                const originalText = btn.innerHTML;
+                
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enviando...';
+                
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    document.getElementById('recoverySuccess').classList.remove('hidden');
+                    
+                    // Clear input
+                    document.getElementById('recoveryEmail').value = '';
+                    
+                    // Auto close after 3 seconds
+                    setTimeout(() => {
+                        forgotPasswordModal.classList.add('hidden');
+                        document.getElementById('recoverySuccess').classList.add('hidden');
+                    }, 3000);
+                }, 1500);
+            } else {
+                // Show error on button
+                const btn = this;
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle mr-2"></i> E-mail inválido';
+                btn.classList.add('bg-red-600', 'from-red-600', 'to-red-600');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-red-600', 'from-red-600', 'to-red-600');
+                }, 2000);
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === forgotPasswordModal) {
+                forgotPasswordModal.classList.add('hidden');
+                document.getElementById('recoverySuccess').classList.add('hidden');
+            }
+        });
+
+        // Check if user remembered
+        window.addEventListener('DOMContentLoaded', function() {
+            const rememberedEmail = localStorage.getItem('g2i_demo_email');
+            const remembered = localStorage.getItem('g2i_demo_remember');
+            
+            if (rememberedEmail && remembered === 'true') {
+                document.getElementById('email').value = rememberedEmail;
+                document.getElementById('remember').checked = true;
+                
+                // Auto-focus password
+                document.getElementById('password').focus();
+            } else {
+                // Auto-focus email
+                document.getElementById('email').focus();
+            }
+            
+            // Create particles
+            createParticles();
+        });
+
+        // Loading animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes loading {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(100%); }
+            }
+            .animate-loading {
+                animation: loading 2s ease-in-out infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
