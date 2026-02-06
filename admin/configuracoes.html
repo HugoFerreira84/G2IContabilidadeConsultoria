@@ -37,7 +37,15 @@
         }
 
         .sidebar.collapsed {
-            width: 70px;
+            width: 95px;
+        }
+
+        .sidebar.collapsed #logoText {
+            display: none;
+        }
+
+        .sidebar.collapsed #toggleSidebar {
+            margin-left: 15px;
         }
 
         .sidebar.collapsed .sidebar-text {
@@ -50,7 +58,7 @@
         }
 
         .main-content.expanded {
-            margin-left: 70px;
+            margin-left: 95px;
         }
 
         .card-glass {
@@ -793,266 +801,246 @@
         </footer>
     </div>
 
-    <!-- Modal de Logout -->
-    <div id="logoutModal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-800">
+    <script>
+    // Toggle Sidebar
+    document.getElementById('toggleSidebar').addEventListener('click', function () {
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+    });
+
+    // Tab Navigation
+    document.querySelectorAll('.config-tab').forEach(tab => {
+        tab.addEventListener('click', function () {
+            const tabId = this.getAttribute('data-tab');
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.config-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+
+            // Add active class to clicked tab
+            this.classList.add('active');
+
+            // Hide all content
+            document.querySelectorAll('.config-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Show selected content
+            document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+        });
+    });
+
+    // Save Settings
+    function saveSettings() {
+        const button = document.querySelector('.btn-modern');
+        const originalText = button.innerHTML;
+
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Salvando...';
+
+        // Simulate save
+        setTimeout(() => {
+            // Show success notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 z-50 bg-green-900/90 text-white px-4 py-3 rounded-lg border border-green-700/50 backdrop-blur-sm';
+            notification.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Configurações salvas com sucesso!';
+            document.body.appendChild(notification);
+
+            // Update footer timestamp
+            const now = new Date();
+            const timestamp = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            const footerText = document.querySelector('footer p:last-child');
+            if (footerText) {
+                footerText.innerHTML = `<span class="text-purple-400">Configurações salvas:</span> ${timestamp}`;
+            }
+
+            setTimeout(() => {
+                notification.remove();
+                button.disabled = false;
+                button.innerHTML = originalText;
+            }, 3000);
+        }, 1500);
+    }
+
+    // Logout com Modal Profissional (APENAS UMA VEZ!)
+    document.getElementById('logoutBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Criar modal de logout
+        const logoutModal = document.createElement('div');
+        logoutModal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80';
+        logoutModal.innerHTML = `
+            <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800 animate-fadeIn">
                 <div class="p-6">
                     <div class="text-center mb-6">
-                        <div
-                            class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
+                        <div class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-sign-out-alt text-purple-400 text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-2">Confirmar Saída</h3>
-                        <p class="text-gray-400">Tem certeza que deseja sair do sistema administrativo?</p>
+                        <p class="text-gray-400">Tem certeza que deseja sair do sistema?</p>
                     </div>
-
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-lg bg-gray-800/50">
-                            <div class="flex items-center">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
-                                    <span class="text-white font-bold">AD</span>
-                                </div>
-                                <div>
-                                    <div class="text-white font-medium">admin@g2i.com</div>
-                                    <div class="text-gray-400 text-sm">Administrador</div>
-                                </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-800/50 mb-6">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
+                                <span class="text-white font-bold">AD</span>
+                            </div>
+                            <div>
+                                <div class="text-white font-medium">${sessionStorage.getItem('g2i_user_name') || 'Administrador'}</div>
+                                <div class="text-gray-400 text-sm">${sessionStorage.getItem('g2i_user_role') === 'admin' ? 'Administrador' : 'Usuário'}</div>
                             </div>
                         </div>
-
-                        <div class="flex justify-center space-x-4 pt-4">
-                            <button id="cancelLogout"
-                                class="px-6 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg">
-                                Cancelar
-                            </button>
-                            <button id="confirmLogout"
-                                class="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg">
-                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
-                            </button>
-                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-3">
+                        <button id="cancelLogout" 
+                                class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition">
+                            Cancelar
+                        </button>
+                        <button id="confirmLogout" 
+                                class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg font-medium transition">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        `;
 
-    <script>
-        // Toggle Sidebar
-        document.getElementById('toggleSidebar').addEventListener('click', function () {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
+        // Adicionar modal ao body
+        document.body.appendChild(logoutModal);
 
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-        });
-
-        // Tab Navigation
-        document.querySelectorAll('.config-tab').forEach(tab => {
-            tab.addEventListener('click', function () {
-                const tabId = this.getAttribute('data-tab');
-
-                // Remove active class from all tabs
-                document.querySelectorAll('.config-tab').forEach(t => {
-                    t.classList.remove('active');
-                });
-
-                // Add active class to clicked tab
-                this.classList.add('active');
-
-                // Hide all content
-                document.querySelectorAll('.config-content').forEach(content => {
-                    content.classList.add('hidden');
-                });
-
-                // Show selected content
-                document.getElementById(`${tabId}-tab`).classList.remove('hidden');
-            });
-        });
-
-        // Save Settings
-        function saveSettings() {
-            const button = document.querySelector('.btn-modern');
-            const originalText = button.innerHTML;
-
-            button.disabled = true;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Salvando...';
-
-            // Simulate save
+        // Função para fechar modal
+        function closeLogoutModal() {
+            logoutModal.style.opacity = '0';
             setTimeout(() => {
-                // Show success notification
-                const notification = document.createElement('div');
-                notification.className = 'fixed top-4 right-4 z-50 bg-green-900/90 text-white px-4 py-3 rounded-lg border border-green-700/50 backdrop-blur-sm';
-                notification.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Configurações salvas com sucesso!';
-                document.body.appendChild(notification);
-
-                // Update footer timestamp
-                const now = new Date();
-                const timestamp = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-                document.querySelector('footer p:last-child').innerHTML = `<span class="text-purple-400">Configurações salvas:</span> ${timestamp}`;
-
-                setTimeout(() => {
-                    notification.remove();
-                    button.disabled = false;
-                    button.innerHTML = originalText;
-                }, 3000);
-            }, 1500);
-        }
-
-        // Logout Modal
-        const logoutModal = document.getElementById('logoutModal');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const cancelLogout = document.getElementById('cancelLogout');
-        const confirmLogout = document.getElementById('confirmLogout');
-
-        logoutBtn.addEventListener('click', function () {
-            logoutModal.classList.remove('hidden');
-        });
-
-        cancelLogout.addEventListener('click', function () {
-            logoutModal.classList.add('hidden');
-        });
-
-        confirmLogout.addEventListener('click', function () {
-            localStorage.removeItem('g2i_demo_email');
-            localStorage.removeItem('g2i_demo_remember');
-            window.location.href = '../index.html';
-        });
-
-        window.addEventListener('click', function (event) {
-            if (event.target === logoutModal) {
-                logoutModal.classList.add('hidden');
-            }
-        });
-
-        // Responsive adjustments
-        function handleResponsive() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-
-            if (window.innerWidth <= 768) {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('expanded');
-            } else {
-                sidebar.classList.remove('collapsed');
-                mainContent.classList.remove('expanded');
-            }
-        }
-
-        // Logout com Modal
-        document.getElementById('logoutBtn').addEventListener('click', function (e) {
-            e.preventDefault();
-
-            // Criar modal de logout
-            const logoutModal = document.createElement('div');
-            logoutModal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80';
-            logoutModal.innerHTML = `
-        <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800 animate-fadeIn">
-            <div class="p-6">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-sign-out-alt text-purple-400 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Confirmar Saída</h3>
-                    <p class="text-gray-400">Tem certeza que deseja sair do sistema?</p>
-                </div>
-                
-                <div class="p-4 rounded-lg bg-gray-800/50 mb-6">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
-                            <span class="text-white font-bold">AD</span>
-                        </div>
-                        <div>
-                            <div class="text-white font-medium">${sessionStorage.getItem('g2i_user_name') || 'Administrador'}</div>
-                            <div class="text-gray-400 text-sm">${sessionStorage.getItem('g2i_user_role') === 'admin' ? 'Administrador' : 'Usuário'}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex space-x-3">
-                    <button id="cancelLogout" 
-                            class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition">
-                        Cancelar
-                    </button>
-                    <button id="confirmLogout" 
-                            class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg font-medium transition">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Sair
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
-
-            // Adicionar modal ao body
-            document.body.appendChild(logoutModal);
-
-            // Função para fechar modal
-            function closeLogoutModal() {
-                logoutModal.style.opacity = '0';
-                setTimeout(() => {
+                if (logoutModal.parentNode) {
                     logoutModal.remove();
-                }, 300);
+                }
+            }, 300);
+        }
+
+        // Botão Cancelar
+        setTimeout(() => {
+            const cancelBtn = document.getElementById('cancelLogout');
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', closeLogoutModal);
             }
+        }, 10);
 
-            // Botão Cancelar
-            document.getElementById('cancelLogout').addEventListener('click', closeLogoutModal);
+        // Botão Confirmar
+        setTimeout(() => {
+            const confirmBtn = document.getElementById('confirmLogout');
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', function () {
+                    // Desabilitar botão e mostrar loading
+                    this.disabled = true;
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saindo...';
 
-            // Botão Confirmar
-            document.getElementById('confirmLogout').addEventListener('click', function () {
-                // Desabilitar botão e mostrar loading
-                this.disabled = true;
-                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saindo...';
+                    // Limpar dados da sessão
+                    sessionStorage.clear();
+                    localStorage.removeItem('g2i_demo_email');
+                    localStorage.removeItem('g2i_demo_remember');
 
-                // Limpar dados da sessão
-                sessionStorage.clear();
-                localStorage.removeItem('g2i_demo_email');
-                localStorage.removeItem('g2i_demo_remember');
-
-                // Mostrar mensagem de sucesso antes de redirecionar
-                setTimeout(() => {
-                    logoutModal.innerHTML = `
-                <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800">
-                    <div class="p-8 text-center">
-                        <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-check text-green-400 text-3xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Logout Realizado</h3>
-                        <p class="text-gray-400 mb-6">Você saiu do sistema com sucesso.</p>
-                        <div class="mt-4">
-                            <div class="loading-spinner mx-auto"></div>
-                            <p class="text-gray-500 text-sm mt-3">Redirecionando...</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-                    // Redirecionar após 1.5 segundos
+                    // Mostrar mensagem de sucesso antes de redirecionar
                     setTimeout(() => {
-                        window.location.href = '../index.html';
-                    }, 1500);
-                }, 1000);
-            });
+                        if (logoutModal.parentNode) {
+                            logoutModal.innerHTML = `
+                                <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800">
+                                    <div class="p-8 text-center">
+                                        <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                                            <i class="fas fa-check text-green-400 text-3xl"></i>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-white mb-2">Logout Realizado</h3>
+                                        <p class="text-gray-400 mb-6">Você saiu do sistema com sucesso.</p>
+                                        <div class="mt-4">
+                                            <div class="loading-spinner mx-auto"></div>
+                                            <p class="text-gray-500 text-sm mt-3">Redirecionando...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
 
-            // Fechar modal ao clicar fora
-            logoutModal.addEventListener('click', function (e) {
-                if (e.target === this) {
-                    closeLogoutModal();
-                }
-            });
+                            // Redirecionar após 1.5 segundos
+                            setTimeout(() => {
+                                window.location.href = '../index.html';
+                            }, 1500);
+                        }
+                    }, 1000);
+                });
+            }
+        }, 10);
 
-            // Fechar modal com ESC
-            const handleEscKey = function (e) {
-                if (e.key === 'Escape') {
-                    closeLogoutModal();
-                    document.removeEventListener('keydown', handleEscKey);
-                }
-            };
-            document.addEventListener('keydown', handleEscKey);
+        // Fechar modal ao clicar fora
+        logoutModal.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeLogoutModal();
+            }
         });
 
-        window.addEventListener('resize', handleResponsive);
-        handleResponsive();
-    </script>
+        // Fechar modal com ESC
+        const handleEscKey = function (e) {
+            if (e.key === 'Escape') {
+                closeLogoutModal();
+                document.removeEventListener('keydown', handleEscKey);
+            }
+        };
+        document.addEventListener('keydown', handleEscKey);
+    });
+
+    // Responsive adjustments
+    function handleResponsive() {
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+
+        if (window.innerWidth <= 768) {
+            if (sidebar) sidebar.classList.add('collapsed');
+            if (mainContent) mainContent.classList.add('expanded');
+        } else {
+            if (sidebar) sidebar.classList.remove('collapsed');
+            if (mainContent) mainContent.classList.remove('expanded');
+        }
+    }
+
+    // Adicionar CSS para animações se não existir
+    if (!document.querySelector('#modal-animations')) {
+        const style = document.createElement('style');
+        style.id = 'modal-animations';
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            .animate-fadeIn {
+                animation: fadeIn 0.3s ease-out;
+            }
+            .loading-spinner {
+                width: 40px;
+                height: 40px;
+                border: 3px solid rgba(255, 255, 255, 0.1);
+                border-top-color: #7600FF;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    window.addEventListener('resize', handleResponsive);
+    handleResponsive();
+</script>
 </body>
 
 </html>
