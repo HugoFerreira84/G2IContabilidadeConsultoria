@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G2I Contabilidade | Soluções Contábeis Completa</title>
+    <link rel="icon" href="img/LOGO-G2I-sem-fundo.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -205,7 +206,7 @@
             transition: transform 0.3s ease;
         }
 
-        .mobile-menu.active{
+        .mobile-menu.active {
             background: rgba(5, 5, 5, 1) !important;
             /* Mais escuro: 5,5,5 em vez de 10,10,10 */
             backdrop-filter: blur(20px) !important;
@@ -652,8 +653,8 @@
                             <i class="fas fa-calculator text-purple-400 text-xl"></i>
                         </div>
                     </div>
-                    <div class="nav-logo-text">
-                        <h2>G2I<span class="text-purple-400">.</span></h2>
+                    <div class="nav-logo-text text-center">
+                        <h2><img src="img/LOGO-G2I-sem-fundo.png" alt="" width="160px"></h2>
                         <p>Contabilidade Inteligente</p>
                     </div>
                 </div>
@@ -664,9 +665,9 @@
                     <a href="#servicos" class="nav-link">Serviços</a>
                     <a href="#sobre" class="nav-link">Sobre Nós</a>
                     <a href="#contato" class="nav-link">Contato</a>
-                    <a href="admin/login.html" class="nav-button">
+                    <!--<a href="admin/login.html" class="nav-button">
                         Área do Colaborador
-                    </a>
+                    </a>-->
                 </div>
 
                 <!-- Mobile Menu Button -->
@@ -691,11 +692,11 @@
                 <a href="#servicos" onclick="closeMobileMenu()">Serviços</a>
                 <a href="#sobre" onclick="closeMobileMenu()">Sobre Nós</a>
                 <a href="#contato" onclick="closeMobileMenu()">Contato</a>
-                <div class="mobile-menu-button-nav">
+                <!--<div class="mobile-menu-button-nav">
                     <a href="admin/login.html" class="nav-button" onclick="closeMobileMenu()">
                         Área do Colaborador
                     </a>
-                </div>
+                </div>-->
             </div>
         </div>
     </nav>
@@ -1224,24 +1225,24 @@
                                     <label for="employees" class="block text-gray-300 mb-2 font-medium">Número de
                                         Funcionários</label>
                                     <select id="employees" class="form-select">
-                                        <option value="">Selecione</option>
-                                        <option value="1-5">1-5 funcionários</option>
-                                        <option value="6-10">6-10 funcionários</option>
-                                        <option value="11-20">11-20 funcionários</option>
-                                        <option value="21-50">21-50 funcionários</option>
-                                        <option value="51+">Mais de 50 funcionários</option>
+                                        <option class="text-gray-600" value="">Selecione</option>
+                                        <option class="text-gray-600" value="1-5">1-5 funcionários</option>
+                                        <option class="text-gray-600" value="6-10">6-10 funcionários</option>
+                                        <option class="text-gray-600" value="11-20">11-20 funcionários</option>
+                                        <option class="text-gray-600" value="21-50">21-50 funcionários</option>
+                                        <option class="text-gray-600" value="51+">Mais de 50 funcionários</option>
                                     </select>
                                 </div>
                                 <div>
                                     <label for="monthlyRevenue" class="block text-gray-300 mb-2 font-medium">Faturamento
                                         Mensal Aprox.</label>
                                     <select id="monthlyRevenue" class="form-select">
-                                        <option value="">Selecione</option>
-                                        <option value="ate-10k">Até R$ 10.000</option>
-                                        <option value="10k-50k">R$ 10.000 - R$ 50.000</option>
-                                        <option value="50k-100k">R$ 50.000 - R$ 100.000</option>
-                                        <option value="100k-500k">R$ 100.000 - R$ 500.000</option>
-                                        <option value="500k+">Acima de R$ 500.000</option>
+                                        <option class="text-gray-600" value="">Selecione</option>
+                                        <option class="text-gray-600" value="ate-10k">Até R$ 10.000</option>
+                                        <option class="text-gray-600" value="10k-50k">R$ 10.000 - R$ 50.000</option>
+                                        <option class="text-gray-600" value="50k-100k">R$ 50.000 - R$ 100.000</option>
+                                        <option class="text-gray-600" value="100k-500k">R$ 100.000 - R$ 500.000</option>
+                                        <option class="text-gray-600" value="500k+">Acima de R$ 500.000</option>
                                     </select>
                                 </div>
                             </div>
@@ -1529,7 +1530,8 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <script>
         // ====== MOBILE MENU FUNCTIONALITY ======
@@ -1682,65 +1684,85 @@
 
         // Máscaras para CPF/CNPJ e Telefone
         function applyMasks() {
-            // Máscara para CNPJ
-            const cnpjInput = document.getElementById('cnpj');
-            if (cnpjInput) {
-                cnpjInput.addEventListener('input', function (e) {
-                    let value = e.target.value.replace(/\D/g, '');
+            $(document).off('input', '#cnpj');
+            $(document).off('input', '#cpf');
+            $(document).off('input', '#budgetPhone');
 
-                    if (value.length <= 14) {
-                        if (value.length > 12) {
-                            value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-                        } else if (value.length > 8) {
-                            value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
-                        } else if (value.length > 5) {
-                            value = value.replace(/^(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
-                        } else if (value.length > 2) {
-                            value = value.replace(/^(\d{2})(\d{0,3})/, '$1.$2');
-                        }
-                        e.target.value = value;
-                    }
-                });
-            }
+            // Máscara para CNPJ
+            $(document).on('input', '#cnpj', function (e) {
+                let value = $(this).val().replace(/\D/g, '');
+
+                // Limita a 14 dígitos
+                if (value.length > 14) {
+                    value = value.slice(0, 14);
+                }
+
+                // Aplica a máscara progressivamente
+                if (value.length === 14) {
+                    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+                } else if (value.length > 12) {
+                    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, '$1.$2.$3/$4-$5');
+                } else if (value.length > 8) {
+                    value = value.replace(/^(\d{2})(\d{3})(\d{3})(\d{0,4})/, '$1.$2.$3/$4');
+                } else if (value.length > 5) {
+                    value = value.replace(/^(\d{2})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                } else if (value.length > 2) {
+                    value = value.replace(/^(\d{2})(\d{0,3})/, '$1.$2');
+                }
+
+                $(this).val(value);
+            });
 
             // Máscara para CPF
-            const cpfInput = document.getElementById('cpf');
-            if (cpfInput) {
-                cpfInput.addEventListener('input', function (e) {
-                    let value = e.target.value.replace(/\D/g, '');
+            $(document).on('input', '#cpf', function (e) {
+                let value = $(this).val().replace(/\D/g, '');
 
-                    if (value.length <= 11) {
-                        if (value.length > 9) {
-                            value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-                        } else if (value.length > 6) {
-                            value = value.replace(/^(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
-                        } else if (value.length > 3) {
-                            value = value.replace(/^(\d{3})(\d{0,3})/, '$1.$2');
-                        }
-                        e.target.value = value;
-                    }
-                });
-            }
+                // Limita a 11 dígitos
+                if (value.length > 11) {
+                    value = value.slice(0, 11);
+                }
+
+                // Aplica a máscara progressivamente
+                if (value.length === 11) {
+                    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+                } else if (value.length > 9) {
+                    value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+                } else if (value.length > 6) {
+                    value = value.replace(/^(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+                } else if (value.length > 3) {
+                    value = value.replace(/^(\d{3})(\d{0,3})/, '$1.$2');
+                }
+
+                $(this).val(value);
+            });
 
             // Máscara para Telefone
-            const phoneInput = document.getElementById('budgetPhone');
-            if (phoneInput) {
-                phoneInput.addEventListener('input', function (e) {
-                    let value = e.target.value.replace(/\D/g, '');
+            $(document).on('input', '#budgetPhone', function (e) {
+                let value = $(this).val().replace(/\D/g, '');
 
-                    if (value.length > 10) {
-                        value = value.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-                    } else if (value.length > 6) {
-                        value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-                    } else if (value.length > 2) {
-                        value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-                    } else if (value.length > 0) {
-                        value = value.replace(/^(\d{0,2})/, '($1');
-                    }
-                    e.target.value = value;
-                });
-            }
+                // Limita a 11 dígitos (incluindo o DDD)
+                if (value.length > 11) {
+                    value = value.slice(0, 11);
+                }
+
+                // Aplica a máscara progressivamente
+                if (value.length === 11) {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+                } else if (value.length === 10) {
+                    value = value.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+                } else if (value.length > 6) {
+                    value = value.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+                } else if (value.length > 2) {
+                    value = value.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+                } else if (value.length > 0) {
+                    value = value.replace(/^(\d{0,2})/, '($1');
+                }
+
+                $(this).val(value);
+            });
         }
+
+
 
         // Envio do formulário de orçamento
         const budgetForm = document.getElementById('budgetForm');
@@ -1935,8 +1957,8 @@
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg backdrop-blur-sm border ${type === 'error'
-                    ? 'bg-red-900/90 border-red-700/50 text-red-100'
-                    : 'bg-green-900/90 border-green-700/50 text-green-100'
+                ? 'bg-red-900/90 border-red-700/50 text-red-100'
+                : 'bg-green-900/90 border-green-700/50 text-green-100'
                 }`;
             notification.innerHTML = `
             <div class="flex items-center">
