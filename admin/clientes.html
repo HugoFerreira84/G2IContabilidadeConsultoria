@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes | G2I Contabilidade</title>
+    <link rel="icon" href="img/LOGO-G2I-sem-fundo.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -799,6 +800,7 @@
 
         // Listen for resize
         window.addEventListener('resize', handleResize);
+
         // Logout com Modal
         document.getElementById('logoutBtn').addEventListener('click', function (e) {
             e.preventDefault();
@@ -807,41 +809,41 @@
             const logoutModal = document.createElement('div');
             logoutModal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80';
             logoutModal.innerHTML = `
-        <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800 animate-fadeIn">
-            <div class="p-6">
-                <div class="text-center mb-6">
-                    <div class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-sign-out-alt text-purple-400 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Confirmar Saída</h3>
-                    <p class="text-gray-400">Tem certeza que deseja sair do sistema?</p>
-                </div>
-                
-                <div class="p-4 rounded-lg bg-gray-800/50 mb-6">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
-                            <span class="text-white font-bold">AD</span>
+                <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800 animate-fadeIn">
+                    <div class="p-6">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 rounded-full bg-purple-900/30 flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-sign-out-alt text-purple-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Confirmar Saída</h3>
+                            <p class="text-gray-400">Tem certeza que deseja sair do sistema?</p>
                         </div>
-                        <div>
-                            <div class="text-white font-medium">${sessionStorage.getItem('g2i_user_name') || 'Administrador'}</div>
-                            <div class="text-gray-400 text-sm">${sessionStorage.getItem('g2i_user_role') === 'admin' ? 'Administrador' : 'Usuário'}</div>
+                        
+                        <div class="p-4 rounded-lg bg-gray-800/50 mb-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-purple-400 flex items-center justify-center mr-3">
+                                    <span class="text-white font-bold">AD</span>
+                                </div>
+                                <div>
+                                    <div class="text-white font-medium">${sessionStorage.getItem('g2i_user_name') || 'Administrador'}</div>
+                                    <div class="text-gray-400 text-sm">${sessionStorage.getItem('g2i_user_role') === 'admin' ? 'Administrador' : 'Usuário'}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button id="cancelLogout" 
+                                    class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition">
+                                Cancelar
+                            </button>
+                            <button id="confirmLogout" 
+                                    class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg font-medium transition">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <div class="flex space-x-3">
-                    <button id="cancelLogout" 
-                            class="flex-1 px-4 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg font-medium transition">
-                        Cancelar
-                    </button>
-                    <button id="confirmLogout" 
-                            class="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-400 hover:from-purple-700 hover:to-purple-500 text-white rounded-lg font-medium transition">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Sair
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
+            `;
 
             // Adicionar modal ao body
             document.body.appendChild(logoutModal);
@@ -871,20 +873,20 @@
                 // Mostrar mensagem de sucesso antes de redirecionar
                 setTimeout(() => {
                     logoutModal.innerHTML = `
-                <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800">
-                    <div class="p-8 text-center">
-                        <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-check text-green-400 text-3xl"></i>
+                        <div class="bg-gray-900 rounded-xl shadow-2xl max-w-md w-full border border-gray-800">
+                            <div class="p-8 text-center">
+                                <div class="w-20 h-20 rounded-full bg-green-900/30 flex items-center justify-center mx-auto mb-6">
+                                    <i class="fas fa-check text-green-400 text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2">Logout Realizado</h3>
+                                <p class="text-gray-400 mb-6">Você saiu do sistema com sucesso.</p>
+                                <div class="mt-4">
+                                    <div class="loading-spinner mx-auto"></div>
+                                    <p class="text-gray-500 text-sm mt-3">Redirecionando...</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2">Logout Realizado</h3>
-                        <p class="text-gray-400 mb-6">Você saiu do sistema com sucesso.</p>
-                        <div class="mt-4">
-                            <div class="loading-spinner mx-auto"></div>
-                            <p class="text-gray-500 text-sm mt-3">Redirecionando...</p>
-                        </div>
-                    </div>
-                </div>
-            `;
+                    `;
 
                     // Redirecionar após 1.5 segundos
                     setTimeout(() => {
